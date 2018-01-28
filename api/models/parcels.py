@@ -46,3 +46,8 @@ class ParcelList:
             return specific_order[0]
         except IndexError:
             return
+
+    def fetch_all_orders_by_specific_user(self,id):
+        all_orders = [orders for orders in self.parcel_list if\
+        orders['User Id']==id]
+        return all_orders
