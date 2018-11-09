@@ -189,8 +189,8 @@ input[type=radio]:not(old){
 }
 
 .signup-input{
-  width: 50%;
-  height: 30px;
+  width: 40%;
+  height: 28px;
   margin: 20px;
 }
 .signupform{
