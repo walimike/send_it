@@ -13,10 +13,23 @@
       <div class="branding">
         <h1>send it</h1>
       </div>
-      <section class="form">
+      <section class="signupform">
         <div class="login">
           <h1><a href="index.html">Log In</a></h1>
           <h2><a href="signup.html">Sign Up</a></h2>
+        </div>
+        <div class="forminput">
+          <form>
+            <input type="name" class="form-input" placeholder="User name" required="required">
+            <input type="email" class="form-input" placeholder="Email" required="required">
+		  		  <input type="password" class="form-input" placeholder="Password" required="required">
+            <input type="password" class="form-input" placeholder="Confirm Password" required="required">
+            <select class="signup-input">
+              <option value="user-type">Admin</option>
+              <option value="user-type">User</option>
+            </select>
+            <button type="submit" class="signup-button" onclick="signUp();">SignUp</button>
+          </form>
         </div>
       </section>
     </section>
