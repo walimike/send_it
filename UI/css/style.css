@@ -1,0 +1,183 @@
+/* index.html styling */
+
+body{
+  background-color: #696969;
+}
+
+.layout{
+  background-image: url("../images/pic1.jpg");
+  background-size: 100% 100%;
+  height: 600px;
+}
+
+.branding{
+  float: left;
+}
+
+.branding h1{
+  font: 40px/1.5 Arial, Helvetica, sans-serif;
+  color: white;
+  text-align: left;
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+.form{
+  height: 60%;
+  float: right;
+  width: 37%;
+  margin-top: 100px;
+  margin-right: 50px;
+  background-color: white;
+  padding: 20px;
+	border-radius: 5px;
+}
+
+.login{
+  margin-top: 5px;
+  height: 15%;
+}
+
+.login h1{
+  float: left;
+  margin-left: 40px;
+}
+
+.login a{
+  text-decoration: none;
+  color: #696969;
+  font: 20px/1.5 Arial, Helvetica, sans-serif;
+}
+
+.login h2{
+  float: right;
+  margin-right: 40px;
+}
+
+.forminput{
+  margin-top: 10px;
+  height: 70%;
+}
+
+.form-input{
+  width: 80%;
+  height: 30px;
+  border-radius: 5px;
+  font: 15px/1.5 Arial, Helvetica, sans-serif;
+  margin: 10px 20px;
+  text-align: center;
+}
+
+.form p{
+  font: 20px/1.5 Arial, Helvetica, sans-serif;
+  color: #696969;
+}
+
+input[type=radio]:not(old){
+  display      : inline-block;
+  margin: auto;
+  padding: inherit;
+  border: 0px;
+  width: 10%;
+  height: 1.3em
+}
+
+.radio{
+  float: left;
+ }
+
+.button, .button1, .button2{
+  color: white;
+  font: 15px/1.5 Arial, Helvetica, sans-serif;
+  background-color: blue;
+  float: right;
+  height: 40px;
+  width: 100px;
+}
+
+.button1{
+  background-color: green;
+  margin: 10px 50px;
+  height: 35px;
+}
+
+.button2{
+  background-color: red;
+  margin: 50px;
+  height: 35px;
+}
+
+.displayarea{
+  height: 300px;
+  padding: 5px;
+}
+
+.displayarea p{
+  text-align: center;
+  font: 25px/1.5 Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.displayarea h1{
+  text-align: center;
+  font: 15px/1.5 Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.area1, .area2, .area3{
+  width:31%;
+  height: 400px;
+  margin: 10px;
+  border-radius: 5px;
+  float: left;
+}
+
+#pic1, #pic2, #pic3{
+  width: 100%;
+  height: 50%;
+  margin-top: 20px;
+}
+
+#pic1 img, #pic2 img, #pic3 img{
+  width: 90%;
+  height: 130%;
+}
+
+.area1 h1, .area2 h1, .area3 h1{
+  float: left;
+  width: 75%;
+  margin-top: 80px;
+  text-align: left;
+  font: 15px/1.5 Arial, Helvetica, sans-serif;
+  color: white;
+  overflow: hidden;
+}
+
+.showcase{
+  margin-top: 250px;
+  height: 300px;
+}
+
+.showcase img{
+  height: 100%;
+}
+
+.desc-image{
+  float: left;
+  margin: 20px;
+  width: 38%;
+  height: 80%;
+}
+
+.description{
+  height: 80%;
+  width: 45%;
+  margin: 20px;
+  float: right;
+}
+
+.description h1{
+  text-align: left;
+  color: white;
+  font: 15px/1.5 Arial, Helvetica, sans-serif;
+}
