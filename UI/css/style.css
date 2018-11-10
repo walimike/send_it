@@ -22,11 +22,11 @@ body{
   font-weight: bold;
 }
 
-.form, .signupform{
-  height: 60%;
+.form{
+  height: 70%;
   float: right;
   width: 37%;
-  margin-top: 100px;
+  margin-top: 70px;
   margin-right: 50px;
   background-color: white;
   padding: 20px;
@@ -192,7 +192,4 @@ input[type=radio]:not(old){
   width: 40%;
   height: 28px;
   margin: 20px;
-}
-.signupform{
-  height: 65%;
 }
