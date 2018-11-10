@@ -9,7 +9,3 @@ class ParcelList:
 
     def fetch_all_orders(self):
         return self.parcel_list
-
-my_parcels = ParcelList()
-
-print(my_parcels.parcel_list)
