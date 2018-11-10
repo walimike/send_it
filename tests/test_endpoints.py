@@ -15,3 +15,7 @@ class ApiTest(unittest.TestCase):
         response = self.client.get('/v1/api/')
         self.assertEqual(response.status_code, 200)
         self.assertIn('Welcome to Send It.', str(response.data))
+
+    def test_empty_product_list(self):
+        response = self.client.get('/v1/api/parcels')
+        self.assertEqual(response.status_code, 200)
