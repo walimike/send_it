@@ -256,8 +256,23 @@ td, th{
   padding: 8px;
 }
 
-
 .details{
   width: 95%;
   height: 30px;
+}
+
+.all-parcels{
+  height: 400px;
+  width: 50%;
+  background-color: white;
+  border-radius: 5px;
+  margin: 30px;
+}
+
+.parcel-details{
+  background-color: #696969;
+  color: white;
+  height: 30px;
+  width: 75px;
+  border-radius: 3px;
 }
