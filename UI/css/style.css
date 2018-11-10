@@ -193,3 +193,71 @@ input[type=radio]:not(old){
   height: 28px;
   margin: 20px;
 }
+
+/* userhome style */
+
+
+.innerbody{
+  background-color: #D3D3D3;
+}
+
+nav{
+  width: 100%;
+  background-color: #696969;
+  height: 50px;
+}
+
+nav h1{
+  float: left;
+  font: 35px/1.5 Arial, Helvetica, sans-serif;
+  color: white;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+nav a{
+  float: right;
+  text-decoration: none;
+  font: 15px/1.5 Arial, Helvetica, sans-serif;
+  color: white;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.create_parcel{
+  height: 230px;
+  width: 85%;
+  background-color: white;
+  margin: 10px 45px;
+  border-radius: 5px;
+}
+
+.create_parcel h1, .all-parcels h1, .view-parcel h1, .parcel-orders h1{
+  font: 25px/1.5 Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+}
+
+table{
+  margin: 0px 10px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table, .table1{
+  padding: 10px;
+  margin-right: 20px;
+}
+
+td, th{
+  border: ipx solid color #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+
+.details{
+  width: 95%;
+  height: 30px;
+}
