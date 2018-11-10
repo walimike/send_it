@@ -276,3 +276,12 @@ td, th{
   width: 75px;
   border-radius: 3px;
 }
+
+.view-parcel{
+  height: 380px;
+  width: 40%;
+  float: right;
+  background-color: white;
+  border-radius: 5px;
+  margin: 30px;
+}
