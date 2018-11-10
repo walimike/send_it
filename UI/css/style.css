@@ -1,4 +1,4 @@
-/* index.html styling */
+/* style for landing page; index.html & signup.html */
 
 body{
   background-color: #696969;
@@ -86,7 +86,7 @@ input[type=radio]:not(old){
   float: left;
  }
 
-.button, .button1, .button2{
+.button, .button1, .button2, .signup-button{
   color: white;
   font: 15px/1.5 Arial, Helvetica, sans-serif;
   background-color: blue;
@@ -180,4 +180,16 @@ input[type=radio]:not(old){
   text-align: left;
   color: white;
   font: 15px/1.5 Arial, Helvetica, sans-serif;
+}
+
+/* signup page style */
+
+.signup-button{
+  margin: 20px;
+}
+
+.signup-input{
+  width: 40%;
+  height: 28px;
+  margin: 20px;
 }
