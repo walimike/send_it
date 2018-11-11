@@ -1,3 +1,4 @@
+from api.models.models import Parcel,User
 
 class ParcelList:
     """
@@ -9,3 +10,21 @@ class ParcelList:
 
     def fetch_all_orders(self):
         return self.parcel_list
+
+    def authenticate_user_identity(self,name):
+        specific_user = [user for user in self.user_list if user.name==name]
+        try:
+            return specific_user[0].id
+        except IndexError:
+            new_user = User(name)
+            self.user_list.append(new_user)
+            return new_user.id
+
+    def add_parcel(self,user_name,parcel):
+        current_id = self.authenticate_user_identity(user_name)
+        new_parcel = parcel.__dict__
+        new_parcel['User Id'] = current_id
+        self.parcel_list.append(new_parcel)
+
+    def fetch_all_users(self):
+        return [users.__dict__ for users in self.user_list]

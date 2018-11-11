@@ -2,3 +2,4 @@ api/__pycache__
 tests/__pycache__
 venv/
 api/models/__pycache__/
+api/models/models.pyc
