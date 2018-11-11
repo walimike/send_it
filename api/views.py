@@ -40,3 +40,11 @@ def make_order():
 @appblueprint.route('/users')
 def fetch_all_users():
     return jsonify({"Userlist":my_parcels.fetch_all_users()})
+
+@appblueprint.route('/parcels/<int:parcel_id>')
+def fetch_specific_order(parcel_id):
+    if not is_valid.order_id(parcel_id):
+        return jsonify({"Error":"Oooppss something wrong with the id"}),400
+    if not my_parcels.fetch_specific_order(parcel_id):
+        return({"Error":"No parcel found with this Id"})
+    return jsonify({"Userlist":my_parcels.fetch_specific_order(parcel_id)})
