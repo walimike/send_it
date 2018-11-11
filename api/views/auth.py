@@ -22,6 +22,8 @@ def add_user():
 
     new_user = User(name,email,password,'user')
 
+    if user_db.fetch_user(new_user):
+        return jsonify({"message":"user already exists with this credentials"}),400
     user_db.add_user(new_user)
     return jsonify({"message":"you have successfully signed up"}),201
 
