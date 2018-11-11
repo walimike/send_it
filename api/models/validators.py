@@ -1,5 +1,4 @@
 from validate_email import validate_email
-from flask import jsonify
 
 class Validator:
     """
