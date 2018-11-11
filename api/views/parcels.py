@@ -48,7 +48,7 @@ def fetch_parcel_by_specific_user():
     user_id = get_jwt_identity()['user_id']
     return jsonify({"Parcel":parcel_db.fetch_parcel_by_specific(user_id)})
 
-@appblueprint.route('/parcels/<int:parcel_id>/status', methods=['PUT'])
+@appblueprint.route('/parcels/<int:parcel_id>/cancel', methods=['PUT'])
 @jwt_required
 def change_order_status(parcel_id):
     user_role = get_jwt_identity()['role']
