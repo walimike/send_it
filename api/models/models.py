@@ -1,14 +1,14 @@
 import uuid
 
 class User:
-    def __init__(self,name):
+    def __init__(self,name,id):
         self.name = name
-        self.id = int(uuid.uuid4())
+        self.id = id
 
 
 class Parcel:
-    def __init__(self,parcel,source,destination):
+    def __init__(self,parcel,source,destination,id):
         self.parcel = parcel
         self.source = source
         self.destination = destination
-        self.parcelid = int(uuid.uuid1())
+        self.parcelid = id
