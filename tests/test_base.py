@@ -74,6 +74,6 @@ class BaseTestCase(unittest.TestCase):
     def change_order_status(self):
         self.make_valid_order()
         new_destination = {"status":"cancel"}
-        response = self.client.put( '/v2/api/parcels/1/status', content_type='application/json',\
+        response = self.client.put( '/v2/api/parcels/1/cancel', content_type='application/json',\
         headers={'Authorization': self.get_token()}, data=json.dumps(new_destination))
         return response
