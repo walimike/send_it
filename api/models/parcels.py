@@ -38,3 +38,11 @@ class ParcelList:
         if len(self.user_list) == 0:
             return 1
         return self.user_list[0].id+1
+
+    def fetch_specific_order(self,id):
+        specific_order = [order for order in self.parcel_list if\
+         order['parcelid']==id]
+        try:
+            return specific_order[0]
+        except IndexError:
+            return
