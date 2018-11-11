@@ -5,6 +5,8 @@ class UserDb(Dbcontroller):
 
     def __init__(self):
         super().__init__()
+        admin_user = User('adminuser','admin@gmail.com','@H@nN@H92','admin')
+        self.add_user(admin_user)
 
     def add_user(self,new_user):
         self.cursor.execute("INSERT INTO users(username,email,password,role) VALUES\
