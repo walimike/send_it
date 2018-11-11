@@ -10,6 +10,8 @@ class ApiTest(unittest.TestCase):
         ,"Parcel name":"success card"}
         self.test_parcel2 = {"Owner":"wali","Source":"mbarara","Destination":"gulu"\
         ,"Parcel name":"mobile phone"}
+        self.test_parcel3 = {"Owner":"douglas","Source":"jinja","Destination":"mbale"\
+        ,"Parcel name":"success card"}
 
     def tearDown(self):
         my_parcels.parcel_list, my_parcels.user_list = [],[]
@@ -73,3 +75,20 @@ class ApiTest(unittest.TestCase):
         response = self.client.get('/v1/api/users')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(my_parcels.fetch_all_users()),1)
+
+    def test_can_generate_unique_ids(self):
+        self.client.post('/v1/api/parcels', json = self.test_parcel)
+        response = self.client.get('/v1/api/users')
+        self.assertEqual(my_parcels.parcel_list[-1]["parcelid"],1)
+        self.assertEqual(my_parcels.user_list[-1].id,1)
+        self.client.post('/v1/api/parcels', json = self.test_parcel3)
+        response = self.client.get('/v1/api/users')
+        self.assertEqual(my_parcels.parcel_list[-1]["parcelid"],2)
+        self.assertEqual(my_parcels.user_list[-1].id,2)
+
+    def test_empty_parcel_name(self):
+        invalid_input = {"Owner":"wa4li","Source":"jinja","Destination":"mbale",\
+        "Parcel name":" "}
+        response = self.client.post('/v1/api/parcels', json = invalid_input)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('Ooops, one of the input fields is not in order', str(response.data))

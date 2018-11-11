@@ -16,7 +16,7 @@ class ParcelList:
         try:
             return specific_user[0].id
         except IndexError:
-            new_user = User(name)
+            new_user = User(name,self.user_id_generator())
             self.user_list.append(new_user)
             return new_user.id
 
@@ -28,3 +28,13 @@ class ParcelList:
 
     def fetch_all_users(self):
         return [users.__dict__ for users in self.user_list]
+
+    def parcel_id_generator(self):
+        if len(self.parcel_list) == 0:
+            return 1
+        return self.parcel_list[-1]["parcelid"]+1
+
+    def user_id_generator(self):
+        if len(self.user_list) == 0:
+            return 1
+        return self.user_list[0].id+1
