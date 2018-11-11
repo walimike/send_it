@@ -1,0 +1,17 @@
+Make an order
+---
+tags:
+    - Order
+responses:
+  201:
+    description: Order successfully created.
+security:
+  - JWT:
+      description: Pass in jwt token. i.e Bearer <jwt>
+      type: apiKey
+      scheme: bearer
+      name: Authorization
+      in: header
+      bearerFormat: JWT
+  400:
+    description: Order was not in right format

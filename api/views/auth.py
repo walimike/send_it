@@ -8,6 +8,7 @@ from api.models.models import User
 from flasgger import swag_from
 
 @appblueprint.route('/auth/signup', methods=['POST'])
+@swag_from('../docs/signup.yml')
 def add_user():
     """{"Name":"","Email":"","Password":"","Role":""}"""
     user_input = request.json

@@ -1,0 +1,17 @@
+Fetch a specific order
+---
+tags:
+    - Order
+responses:
+  200:
+    description: Order successfully fetched by user.
+security:
+  - JWT:
+      description: Pass in jwt token. i.e Bearer <jwt>
+      type: apiKey
+      scheme: bearer
+      name: Authorization
+      in: header
+      bearerFormat: JWT
+  404:
+    description: Order was not found in database.

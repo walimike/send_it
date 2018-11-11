@@ -1,0 +1,21 @@
+User Login.
+---
+tags:
+ - User Authentication
+parameters:
+  - in: body
+    name: body
+    required: true
+    type: string
+    description: This route is used to sigin a new user.
+responses:
+  200:
+    description: JWT token generated.
+    schema:
+      id: user
+      properties:
+        password:
+          type: string
+          default: paswaord
+  400:
+    description: .

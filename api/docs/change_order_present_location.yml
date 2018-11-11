@@ -1,0 +1,21 @@
+Change Order Present Location
+---
+tags:
+    - Order
+responses:
+  200:
+    description: Change Order Present Location by Admin.
+security:
+  - JWT:
+      description: Pass in jwt token. i.e Bearer <jwt>
+      type: apiKey
+      scheme: bearer
+      name: Authorization
+      in: header
+      bearerFormat: JWT
+400:
+  description: Error in input data
+404:
+  description: Data requested for not found
+401:
+  description: Unauthorized access
