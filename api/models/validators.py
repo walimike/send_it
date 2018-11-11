@@ -29,3 +29,14 @@ class Validator:
             return new_text
         else:
             return
+
+    def order_id(self,number):
+        """test input to be int"""
+        if isinstance(number, int):
+            """check if int is greater than 0"""
+            if number > 0:
+                return number
+            else:
+                return
+        else:
+            return
