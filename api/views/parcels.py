@@ -3,6 +3,7 @@ from api.views.utilities import appblueprint, parcel_db, is_not_valid_order_key,
 is_not_valid_order, user_db
 from api.models.models import Parcel
 from flask_jwt_extended import jwt_required,get_jwt_identity
+from flasgger import swag_from
 
 
 @appblueprint.route('/parcels', methods=['POST'])
