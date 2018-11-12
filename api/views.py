@@ -48,3 +48,10 @@ def fetch_specific_order(parcel_id):
     if not my_parcels.fetch_specific_order(parcel_id):
         return({"Error":"No parcel found with this Id"})
     return jsonify({"Userlist":my_parcels.fetch_specific_order(parcel_id)})
+
+@appblueprint.route('/users/<int:user_id>/parcels')
+def fetch_all_orders_by_specific_user(user_id):
+    orders = my_parcels.fetch_all_orders_by_specific_user(user_id)
+    if not orders:
+        return jsonify({"Error":"Oooopss Id appears to be out of range."}),400
+    return jsonify({"Orders":orders})

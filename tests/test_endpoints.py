@@ -79,3 +79,17 @@ class ApiTest(unittest.TestCase):
         self.client.post('/v1/api/parcels', json = self.test_parcel2)
         response = self.client.get('/v1/api/parcels/1')
         self.assertEqual(response.status_code, 200)
+
+    def test_can_get_all_orders_by_specific_user(self):
+        self.client.post('/v1/api/parcels', json = self.test_parcel)
+        self.client.post('/v1/api/parcels', json = self.test_parcel2)
+        response = self.client.get('/v1/api/users/1/parcels')
+        self.assertEqual(response.status_code, 200)
+
+    def test_userid_out_of_range(self):
+        self.client.post('/v1/api/parcels', json = self.test_parcel)
+        self.client.post('/v1/api/parcels', json = self.test_parcel2)
+        response = self.client.get('/v1/api/users/1/parcels')
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get('/v1/api/users/5/parcels')
+        self.assertEqual(response.status_code, 400)
