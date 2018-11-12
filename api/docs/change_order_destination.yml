@@ -2,6 +2,14 @@ Change Order destination
 ---
 tags:
     - Order
+parameters:
+- in: header
+  name: Authorization
+  description: authorization header
+  required: true
+  type: string
+  schema:
+  id: bearer
 responses:
   200:
     description: Change Order destination by owner of parcel.

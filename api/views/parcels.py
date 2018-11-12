@@ -3,10 +3,11 @@ from api.views.utilities import appblueprint, parcel_db, is_not_valid_order_key,
 is_not_valid_order, user_db
 from api.models.models import Parcel
 from flask_jwt_extended import jwt_required,get_jwt_identity
-
+from flasgger import swag_from
 
 @appblueprint.route('/parcels', methods=['POST'])
 @jwt_required
+#@swag_from('../docs/make_order.yml', methods = ['POST'])
 def make_order():
 
     user_identiy = get_jwt_identity()
@@ -28,6 +29,7 @@ def make_order():
 
 @appblueprint.route('/parcels', methods=['GET'])
 @jwt_required
+#@swag_from('../docs/fetch_all_orders.yml', methods = ['GET'])
 def fetch_all_orders():
     role = get_jwt_identity()['role']
     if role != 'admin':
@@ -36,6 +38,7 @@ def fetch_all_orders():
 
 @appblueprint.route('/parcels/<int:parcel_id>', methods=['GET'])
 @jwt_required
+#@swag_from('../docs/fetch_specific_order.yml', methods = ['GET'])
 def fetch_specific_order(parcel_id):
     parcel = parcel_db.fetch_parcel(parcel_id)
     if not parcel:
@@ -44,12 +47,14 @@ def fetch_specific_order(parcel_id):
 
 @appblueprint.route('/users/parcels', methods=['GET'])
 @jwt_required
+#@swag_from('../docs/fetch_parcel_by_specific_user.yml', methods = ['GET'])
 def fetch_parcel_by_specific_user():
     user_id = get_jwt_identity()['user_id']
     return jsonify({"Parcel":parcel_db.fetch_parcel_by_specific(user_id)})
 
 @appblueprint.route('/parcels/<int:parcel_id>/cancel', methods=['PUT'])
 @jwt_required
+#@swag_from('../docs/change_order_status.yml', methods = ['PUT'])
 def change_order_status(parcel_id):
     user_role = get_jwt_identity()['role']
     if user_role == 'user':
@@ -65,6 +70,7 @@ def change_order_status(parcel_id):
 
 @appblueprint.route('/parcels/<int:parcel_id>/destination', methods=['PUT'])
 @jwt_required
+@swag_from('../docs/change_order_destination.yml', methods = ['PUT'])
 def change_order_destination(parcel_id):
     destination = request.json['destination']
     user_id = get_jwt_identity()['user_id']
@@ -79,6 +85,7 @@ def change_order_destination(parcel_id):
 
 @appblueprint.route('/parcels/<int:parcel_id>/presentlocation', methods=['PUT'])
 @jwt_required
+@swag_from('../docs/change_order_present_location.yml', methods = ['PUT'])
 def change_order_present_location(parcel_id):
     location = request.json['present_location']
     role = get_jwt_identity()['role']
