@@ -5,10 +5,8 @@ from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
     get_jwt_identity)
 from api.views.utilities import appblueprint
 from api.models.models import User
-from flasgger import swag_from
 
 @appblueprint.route('/auth/signup', methods=['POST'])
-@swag_from('../docs/signup.yml')
 def add_user():
     """{"Name":"","Email":"","Password":"","Role":""}"""
     user_input = request.json
@@ -24,12 +22,14 @@ def add_user():
 
     new_user = User(name,email,password,'user')
 
+    if user_db.fetch_user(new_user):
+        return jsonify({"message":"user already exists with this credentials"}),400
+
     user_db.add_user(new_user)
     return jsonify({"message":"you have successfully signed up"}),201
 
 
 @appblueprint.route('/auth/login', methods=['POST'])
-@swag_from('../docs/signin.yml')
 def login():
 
     user_input = request.json
