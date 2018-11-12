@@ -12,3 +12,4 @@ class Parcel:
         self.source = source
         self.destination = destination
         self.parcelid = id
+        self.status = "In Transit"
