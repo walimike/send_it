@@ -40,3 +40,7 @@ class Validator:
                 return
         else:
             return
+
+    def status_update(self,status):
+        if status.casefold() == 'cancel':
+            return status
