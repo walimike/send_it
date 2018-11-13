@@ -10,6 +10,8 @@ class ApiTest(unittest.TestCase):
         ,"Parcel name":"success card"}
         self.test_parcel2 = {"Owner":"wali","Source":"mbarara","Destination":"gulu"\
         ,"Parcel name":"mobile phone"}
+        self.test_parcel3 = {"Owner":"munga","Source":"kampala","Destination":"soroti"\
+        ,"Parcel name":"nissan"}
 
     def tearDown(self):
         my_parcels.parcel_list, my_parcels.user_list = [],[]
@@ -73,6 +75,8 @@ class ApiTest(unittest.TestCase):
         response = self.client.get('/v1/api/users')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(my_parcels.fetch_all_users()),1)
+        self.client.post('/v1/api/parcels', json = self.test_parcel3)
+        self.assertEqual(len(my_parcels.fetch_all_users()),2)
 
     def test_can_get_specific_order(self):
         self.client.post('/v1/api/parcels', json = self.test_parcel)
@@ -84,6 +88,11 @@ class ApiTest(unittest.TestCase):
         self.client.post('/v1/api/parcels', json = self.test_parcel)
         self.client.post('/v1/api/parcels', json = self.test_parcel2)
         response = self.client.get('/v1/api/users/1/parcels')
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get('/v1/api/parcels/3')
+        self.assertEqual(response.status_code, 400)
+        self.client.post('/v1/api/parcels', json = self.test_parcel2)
+        response = self.client.get('/v1/api/parcels/3')
         self.assertEqual(response.status_code, 200)
 
     def test_userid_out_of_range(self):

@@ -51,8 +51,9 @@ class ParcelList:
         all_orders = [orders for orders in self.parcel_list if\
         orders['User Id']==id]
         return all_orders
-
-    def cancel_order(self,id):
-        specific_order = self.fetch_specific_order(id)
-        specific_order['status'] = 'Canceled'
-        return [specific_order]
+"""
+parcels=ParcelList()
+new_parcel = Parcel('parcel','source','destination',1)
+parcels.add_parcel('wali',new_parcel)
+print(parcels.fetch_specific_order(10))
+"""

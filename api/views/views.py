@@ -43,10 +43,8 @@ def fetch_all_users():
 
 @appblueprint.route('/parcels/<int:parcel_id>')
 def fetch_specific_order(parcel_id):
-    if not is_valid.order_id(parcel_id):
-        return jsonify({"Error":"Oooppss something wrong with the id"}),400
     if not my_parcels.fetch_specific_order(parcel_id):
-        return({"Error":"No parcel found with this Id"})
+        return jsonify({"Error":"Oooppss something wrong with the id"}),400
     return jsonify({"Userlist":my_parcels.fetch_specific_order(parcel_id)})
 
 @appblueprint.route('/users/<int:user_id>/parcels')
@@ -55,20 +53,3 @@ def fetch_all_orders_by_specific_user(user_id):
     if not orders:
         return jsonify({"Error":"Oooopss Id appears to be out of range."}),400
     return jsonify({"Orders":orders})
-
-@appblueprint.route('/parcels/<int:parcel_id>/cancel', methods=['PUT'])
-def cancel_specific_order(parcel_id):
-    if not request.json.get('status'):
-        abort(400)
-    if not is_valid.order_id(parcel_id):
-        abort(400)
-    new_status = request.get_json()['status']
-    if not is_valid.status_update(new_status):
-        return jsonify({"Error":"Status can only be canceled ie. 'status':'cancel'"}),400
-    return jsonify({'Parcel List':my_parcels.cancel_order(parcel_id)})
-"""
-     if request.method == 'PUT':
-        note = str(request.data.get('text', ''))
-        notes[key] = note
-        return note_repr(key)
-"""
