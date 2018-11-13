@@ -1,6 +1,6 @@
 import unittest
 from api import app
-from api.views import my_parcels
+from api.views.views import my_parcels
 
 class ApiTest(unittest.TestCase):
 
@@ -92,12 +92,4 @@ class ApiTest(unittest.TestCase):
         response = self.client.get('/v1/api/users/1/parcels')
         self.assertEqual(response.status_code, 200)
         response = self.client.get('/v1/api/users/5/parcels')
-        self.assertEqual(response.status_code, 400)
-
-    def test_can_update_order_status(self):
-        self.client.post('/v1/api/parcels', json = self.test_parcel)
-        response = self.client.put('/v1/api/parcels/1/cancel',json={'status':'cancel'})
-        self.assertEqual(my_parcels.fetch_specific_order(1)['status'],'Canceled')
-        self.assertEqual(response.status_code, 200)
-        response = self.client.put('/v1/api/parcels/1/cancel',json={'status':'random'})
         self.assertEqual(response.status_code, 400)
