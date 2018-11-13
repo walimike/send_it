@@ -3,3 +3,5 @@ tests/__pycache__
 venv/
 api/models/__pycache__/
 api/models/models.pyc
+api/views/__pycache__/
+instance/__pycache__/
