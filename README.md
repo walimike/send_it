@@ -17,13 +17,14 @@ __SendIT is a courier service that helps users deliver parcels to different dest
 
 ## Quick Setup
 1. Open your terminal.
-2. Type in the command git clone and paste in this link `https://github.com/walimike/send_it.git.`
+2. Type in the command git clone and paste in this [link](https://github.com/walimike/send_it.git)
 3. You can now checkout to the develop branch.
 4. Create a virtual environment and then `pip install -r requirements.txt`
 5. Now run the app using `python run.py`
 
 ## UI Demo
-The UI demo is hosted on gh-pages on this link:  [here](https://walimike.github.io/send_it/)
+The UI demo is hosted on gh-pages on this link:  [here](https://walimike.github.io/send_it/) <br>
+You can log in either as a normal user or an admin user and perfoam the various activities.
 
 ## API Demo:
 The Api demo is hosted [here](https://walimike.herokuapp.com/v1/api/) <br>
@@ -36,6 +37,7 @@ The url_prefix is `/v1/api/`<br>
 |`/users/<userId>/parcels`|`GET`| Fetch all parcel delivery orders by a specific user|
 |`/parcels/<parcelId>/cancel`|`PUT`| Cancel the specific parcel delivery order|
 |`/parcels`|`POST`| Create a parcel delivery order|
+|`/users`|`GET`|Fetches all users and their IDs|
 
 #  Authors
 Michael Robert Wali
