@@ -3,7 +3,7 @@
 __SendIT is a courier service that helps users deliver parcels to different destinations.<br> SendIT provides courier quotes based on weight categories.__
 
 ## Badges <br>
-[![Build Status](https://travis-ci.org/walimike/send_it.svg?branch=api-v1)](https://travis-ci.org/walimike/send_it)    [![Coverage Status](https://coveralls.io/repos/github/walimike/send_it/badge.svg?branch=api-v1)](https://coveralls.io/github/walimike/send_it?branch=api-v1)      [![Maintainability](https://api.codeclimate.com/v1/badges/a2aa72f959462adcbbde/maintainability)]
+[![Build Status](https://travis-ci.org/walimike/send_it.svg?branch=api-v1)](https://travis-ci.org/walimike/send_it)    [![Coverage Status](https://coveralls.io/repos/github/walimike/send_it/badge.svg?branch=add-code-climate)](https://coveralls.io/github/walimike/send_it?branch=add-code-climate)      [![Maintainability](https://api.codeclimate.com/v1/badges/a2aa72f959462adcbbde/maintainability)]
 
 
 ## Main features
