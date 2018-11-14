@@ -3,9 +3,8 @@
 __SendIT is a courier service that helps users deliver parcels to different destinations.<br> SendIT provides courier quotes based on weight categories.__
 
 ## Badges <br>
-[![Build Status](https://travis-ci.org/walimike/send_it.svg?branch=api-v1)](https://travis-ci.org/walimike/send_it)
+[![Build Status](https://travis-ci.org/walimike/send_it.svg?branch=api-v1)](https://travis-ci.org/walimike/send_it)    [![Coverage Status](https://coveralls.io/repos/github/walimike/send_it/badge.svg?branch=add-code-climate)](https://coveralls.io/github/walimike/send_it?branch=add-code-climate)      [![Maintainability](https://api.codeclimate.com/v1/badges/a2aa72f959462adcbbde/maintainability)]
 
-[![Coverage Status](https://coveralls.io/repos/github/walimike/send_it/badge.svg?branch=api-v1)](https://coveralls.io/github/walimike/send_it?branch=api-v1)
 
 ## Main features
 1. Users can create an account and log in.
@@ -25,7 +24,8 @@ __SendIT is a courier service that helps users deliver parcels to different dest
 ## UI Demo
 The UI demo is hosted on gh-pages on this link:  https://walimike.github.io/send_it/
 
-## The API works as follows:
+## API Demo:
+The Api demo is hosted here: https://walimike.herokuapp.com/v1/api/
 The url_prefix is `/v1/api/`
 1. `GET /parcels` Fetch all parcel delivery orders
 2. `GET /parcels/<parcelId>` Fetch a specific parcel delivery order
