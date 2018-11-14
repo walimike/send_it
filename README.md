@@ -1,5 +1,6 @@
 # Send It
 ## Project Overview
+
 __SendIT is a courier service that helps users deliver parcels to different destinations.<br> SendIT provides courier quotes based on weight categories.__
 
 ## Badges <br>
