@@ -12,6 +12,7 @@ class ParcelList:
         return self.parcel_list
 
     def authenticate_user_identity(self,name):
+        """This function authenticates each user by providing an ID."""
         specific_user = [user for user in self.user_list if user.name==name]
         try:
             return specific_user[0].id
@@ -51,9 +52,3 @@ class ParcelList:
         all_orders = [orders for orders in self.parcel_list if\
         orders['User Id']==id]
         return all_orders
-"""
-parcels=ParcelList()
-new_parcel = Parcel('parcel','source','destination',1)
-parcels.add_parcel('wali',new_parcel)
-print(parcels.fetch_specific_order(10))
-"""

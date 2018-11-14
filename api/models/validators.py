@@ -21,8 +21,6 @@ class Validator:
     def normal_string(self,text):
         """test input to be string"""
         if isinstance(text, str):
-            """check if string is empty using strip function"""
             new_text = str(text).strip()
             if new_text:
-                """if string empty return false"""
                 return new_text

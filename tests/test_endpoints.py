@@ -79,7 +79,9 @@ class ApiTest(unittest.TestCase):
         self.assertEqual(len(my_parcels.fetch_all_users()),2)
 
     def test_can_get_specific_order(self):
-        self.client.post('/v1/api/parcels', json = self.test_parcel)
+        response=self.client.post('/v1/api/parcels', json = {})
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('Bad request', str(response.data))
         self.client.post('/v1/api/parcels', json = self.test_parcel2)
         response = self.client.get('/v1/api/parcels/1')
         self.assertEqual(response.status_code, 200)
