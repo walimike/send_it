@@ -24,7 +24,8 @@ __SendIT is a courier service that helps users deliver parcels to different dest
 ## UI Demo
 The UI demo is hosted on gh-pages on this link:  https://walimike.github.io/send_it/
 
-## The API works as follows:
+## API Demo:
+The Api demo is hosted here: https://walimike.herokuapp.com/v1/api/
 The url_prefix is `/v1/api/`
 1. `GET /parcels` Fetch all parcel delivery orders
 2. `GET /parcels/<parcelId>` Fetch a specific parcel delivery order
