@@ -16,22 +16,25 @@ __SendIT is a courier service that helps users deliver parcels to different dest
 
 ## Quick Setup
 1. Open your terminal.
-2. Type in the command git clone and paste in this link https://github.com/walimike/send_it.git.
+2. Type in the command git clone and paste in this link `https://github.com/walimike/send_it.git.`
 3. You can now checkout to the develop branch.
 4. Create a virtual environment and then `pip install -r requirements.txt`
 5. Now run the app using `python run.py`
 
 ## UI Demo
-The UI demo is hosted on gh-pages on this link:  https://walimike.github.io/send_it/
+The UI demo is hosted on gh-pages on this link:  `https://walimike.github.io/send_it/`
 
 ## API Demo:
-The Api demo is hosted here: https://walimike.herokuapp.com/v1/api/
-The url_prefix is `/v1/api/`
-1. `GET /parcels` Fetch all parcel delivery orders
-2. `GET /parcels/<parcelId>` Fetch a specific parcel delivery order
-3. `GET /users/<userId>/parcels` Fetch all parcel delivery orders by a specific user
-4. `PUT /parcels/<parcelId>/cancel` Cancel the specific parcel delivery order
-5. `POST /parcels` Create a parcel delivery order
+The Api demo is hosted here: `https://walimike.herokuapp.com/v1/api/` <br>
+The url_prefix is `/v1/api/`<br>
+
+| URL Endpoint | HTTP Method | Description|
+|--------------|-------------|------------|
+|`/parcels`    | `GET`       |Fetch all parcel delivery orders | 
+|`/parcels/<parcelId>`|`GET`|  Fetch a specific parcel delivery order|
+|`/users/<userId>/parcels`|`GET`| Fetch all parcel delivery orders by a specific user|
+|`/parcels/<parcelId>/cancel`|`PUT`| Cancel the specific parcel delivery order|
+|`/parcels`|`POST`| Create a parcel delivery order|
 
 #  Authors
 Michael Robert Wali
