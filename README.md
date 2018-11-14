@@ -37,6 +37,7 @@ The url_prefix is `/v1/api/`<br>
 |`/users/<userId>/parcels`|`GET`| Fetch all parcel delivery orders by a specific user|
 |`/parcels/<parcelId>/cancel`|`PUT`| Cancel the specific parcel delivery order|
 |`/parcels`|`POST`| Create a parcel delivery order|
+|`/users`|`GET`|Fetch all current users| 
 
 #  Authors
 Michael Robert Wali
