@@ -24,10 +24,10 @@ __SendIT is a courier service that helps users deliver parcels to different dest
 5. Now run the app using `python run.py`
 
 ## UI Demo
-The UI demo is hosted on gh-pages on this link:  `https://walimike.github.io/send_it/`
+The UI demo is hosted on gh-pages on this [link](https://walimike.github.io/send_it/)
 
 ## API Demo:
-The Api demo is hosted here: `https://walimike.herokuapp.com/v1/api/` <br>
+The Api demo is hosted [here](https://walimike.herokuapp.com/v1/api/) <br>
 The url_prefix is `/v1/api/`<br>
 
 | URL Endpoint | HTTP Method | Description|
