@@ -99,7 +99,7 @@ class ApiTest(unittest.TestCase):
         response = self.client.get('/test/api/users/1/parcels')
         self.assertEqual(response.status_code, 200)
         response = self.client.get('/test/api/parcels/3')
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 404)
         self.client.post('/test/api/parcels', json = self.test_parcel2)
         response = self.client.get('/test/api/parcels/3')
         self.assertEqual(response.status_code, 200)
@@ -110,7 +110,7 @@ class ApiTest(unittest.TestCase):
         response = self.client.get('/test/api/users/1/parcels')
         self.assertEqual(response.status_code, 200)
         response = self.client.get('/test/api/users/5/parcels')
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 404)
 
 
 if __name__ == '__main__':

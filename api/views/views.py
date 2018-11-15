@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, abort, request, make_response, json
+from flask import Blueprint, jsonify, abort, request, json
 from api.models.parcels import ParcelList
 from api.models.models import Parcel
 from api.models.validators import Validator
@@ -44,12 +44,12 @@ def fetch_all_users():
 @appblueprint.route('/parcels/<int:parcel_id>')
 def fetch_specific_order(parcel_id):
     if not my_parcels.fetch_specific_order(parcel_id):
-        return jsonify({"Error":"Oooppss something wrong with the id"}),400
-    return jsonify({"Userlist":my_parcels.fetch_specific_order(parcel_id)})
+        abort(404)
+    return jsonify({"Order":my_parcels.fetch_specific_order(parcel_id)})
 
 @appblueprint.route('/users/<int:user_id>/parcels')
 def fetch_all_orders_by_specific_user(user_id):
     orders = my_parcels.fetch_all_orders_by_specific_user(user_id)
     if not orders:
-        return jsonify({"Error":"Oooopss Id appears to be out of range."}),400
+        abort(404)
     return jsonify({"Orders":orders})
