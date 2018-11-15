@@ -53,3 +53,12 @@ def fetch_all_orders_by_specific_user(user_id):
     if not orders:
         abort(404)
     return jsonify({"Orders":orders})
+
+@appblueprint.route('/parcels/<int:parcel_id>/cancel', methods=['PUT'])
+def cancel_specific_order(parcel_id):
+    if not my_parcels.fetch_specific_order(parcel_id):
+        abort(404)    
+    new_status = request.get_json()['status']
+    if not is_valid.status_update(new_status):
+        return jsonify({"Error":"Status can only be canceled ie. 'status':'cancel'"}),400
+    return jsonify({'Parcel List':my_parcels.cancel_order(parcel_id)})
