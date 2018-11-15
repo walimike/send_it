@@ -114,6 +114,16 @@ class ApiTest(unittest.TestCase):
         response = self.client.get('/test/api/users/5/parcels')
         self.assertEqual(response.status_code, 404)
 
+    def test_can_update_order_status(self):
+        rv = self.client.post('/test/api/parcels', json = self.test_parcel)
+        self.assertIn('In Transit',str(rv.data))
+        response = self.client.put('/test/api/parcels/1/cancel',json={'status':'cancel'})
+        self.assertIn('Canceled',str(response.data))
+        self.assertEqual(response.status_code, 200)
+        response = self.client.put('/test/api/parcels/1/cancel',json={'status':'random'})
+        self.assertEqual(response.status_code, 400)
+        response = self.client.put('/test/api/parcels/10/cancel',json={'status':'cancel'})
+        self.assertEqual(response.status_code, 404)
 
 if __name__ == '__main__':
     unittest.main
