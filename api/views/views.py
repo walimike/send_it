@@ -15,7 +15,7 @@ def welcomeMessage():
 
 @appblueprint.route('/parcels')
 def fetch_all_orders():
-    return jsonify({"Parcel list": my_parcels.parcel_list})
+    return jsonify({"Parcel list": my_parcels.fetch_all_orders()})
 
 @appblueprint.route('/parcels', methods=['POST'])
 def make_order():
@@ -45,7 +45,7 @@ def fetch_all_users():
 def fetch_specific_order(parcel_id):
     if not my_parcels.fetch_specific_order(parcel_id):
         abort(404)
-    return jsonify({"Order":my_parcels.fetch_specific_order(parcel_id)})
+    return jsonify({"Userlist":my_parcels.fetch_specific_order(parcel_id)})
 
 @appblueprint.route('/users/<int:user_id>/parcels')
 def fetch_all_orders_by_specific_user(user_id):

@@ -1,5 +1,4 @@
 import unittest
-from api.views.views import my_parcels
 from instance import create_app
 from api.views import appblueprint
 
@@ -20,9 +19,6 @@ class ApiTest(unittest.TestCase):
         self.test_parcel3 = {"Owner":"munga","Source":"kampala","Destination":"soroti"\
         ,"Parcel name":"nissan"}
 
-    def tearDown(self):
-        my_parcels.parcel_list, my_parcels.user_list = [],[]
-
     def test_welcome_message(self):
         response = self.client.get('/test/api/')
         self.assertEqual(response.status_code, 200)
@@ -33,22 +29,24 @@ class ApiTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_can_make_parcel_order(self):
-        self.assertEqual(len(my_parcels.fetch_all_orders()), 0)
-        self.assertEqual(len(my_parcels.fetch_all_users()), 0)
         response = self.client.post('/test/api/parcels', json = self.test_parcel)
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(len(my_parcels.fetch_all_orders()), 1)
-        self.assertEqual(len(my_parcels.fetch_all_users()), 1)
+        rv = self.client.get('/test/api/parcels')
+        self.assertIn('jinja',str(rv.data))
 
     def test_make_order_by_same_user(self):
         response = self.client.post('/test/api/parcels', json = self.test_parcel)
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(len(my_parcels.fetch_all_orders()), 1)
-        self.assertEqual(len(my_parcels.fetch_all_users()), 1)
+        rv = self.client.get('/test/api/parcels')
+        self.assertIn('jinja',str(rv.data))
         response = self.client.post('/test/api/parcels', json = self.test_parcel2)
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(len(my_parcels.fetch_all_orders()), 2)
-        self.assertEqual(len(my_parcels.fetch_all_users()), 1)
+        rv = self.client.get('/test/api/parcels/2')
+        self.assertIn('mbarara',str(rv.data))
+        self.assertEqual(rv.status_code, 200)
+        rv = self.client.get('/test/api/users')
+        self.assertIn('wali',str(rv.data))
+        self.assertEqual(rv.status_code, 200)
 
     def test_can_verify_invalid_input(self):
         invalid_input = {"Owner":"wa4li","Source":"jinja","Destination":"mbale",\
@@ -81,9 +79,12 @@ class ApiTest(unittest.TestCase):
         self.client.post('/test/api/parcels', json = self.test_parcel)
         response = self.client.get('/test/api/users')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(my_parcels.fetch_all_users()),1)
+        self.assertIn('wali',str(response.data))
         self.client.post('/test/api/parcels', json = self.test_parcel3)
-        self.assertEqual(len(my_parcels.fetch_all_users()),2)
+        response = self.client.get('/test/api/users')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('munga',str(response.data))
+
 
     def test_can_get_specific_order(self):
         response=self.client.post('/test/api/parcels', json = {})
@@ -100,6 +101,7 @@ class ApiTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.client.get('/test/api/parcels/3')
         self.assertEqual(response.status_code, 404)
+        self.assertIn('Oooopss ID out of range',str(response.data))
         self.client.post('/test/api/parcels', json = self.test_parcel2)
         response = self.client.get('/test/api/parcels/3')
         self.assertEqual(response.status_code, 200)
