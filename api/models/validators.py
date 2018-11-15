@@ -24,3 +24,8 @@ class Validator:
             new_text = str(text).strip()
             if new_text:
                 return new_text
+
+    def status_update(self, status):
+        new_status = status.strip()
+        if new_status.casefold() == 'cancel':
+            return new_status
