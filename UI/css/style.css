@@ -338,6 +338,7 @@ td, th{
 
     .form{
       width: 70%;
+      height: 60%;
     }
     .area1, .area2, .area3{
       width: 50%;
@@ -384,5 +385,27 @@ td, th{
       width: 80%;
       float: left;
       height: 450px;
+    }
+
+    .forminput{
+      height: 50%;
+    }
+
+    .form-input{
+      width: 80%;
+      height: 20px;
+      font: 15px/1.5 Arial, Helvetica, sans-serif;
+      margin: 5px 5px;
+      text-align: center;
+    }
+    .showcase{
+        width: 100%;
+    }
+    .desc-image{
+      image: none;
+      float: left;
+    }
+    .description{
+      float: left;
     }
 }
