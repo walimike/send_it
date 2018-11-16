@@ -239,7 +239,7 @@ nav a{
   padding: 10px;
 }
 
-table{
+tr{
   margin: 0px 10px;
   border-collapse: collapse;
   width: 100%;
@@ -327,4 +327,62 @@ td, th{
 .table2{
   margin: 20px 25%;
   width: 200px;
+}
+
+/* Media Responsiveness for page*/
+
+@media only screen and (max-width: 900px) {
+    body {
+        background-color: lightblue;
+    }
+
+    .form{
+      width: 70%;
+    }
+    .area1, .area2, .area3{
+      width: 50%;
+    }
+    .forminput{
+      width: 50%;
+      height: 50%;
+    }
+    .view-parcel{
+      width: 70%;
+      float: left;
+      height: 420px;
+    }
+    .all-parcels{
+      width: 70%;
+      float: left;
+    }
+
+    tr{
+      margin: 0px 10px;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .table1{
+      padding: 10px;
+      width: 80%;
+    }
+
+    .create_parcel th{
+      border: 1px solid color #dddddd;
+      float: left;
+    }
+    create_parcel tr{
+      float: left;
+      overflow-x: : hidden;
+      width: 20%;
+    }
+    .profile{
+      width: 50%;
+      float: left;
+    }
+    .parcel-orders{
+      width: 80%;
+      float: left;
+      height: 450px;
+    }
 }
