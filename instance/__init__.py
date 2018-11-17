@@ -15,11 +15,14 @@ class AppSettings:
         app.config.from_pyfile('config.py')
         return app
 
-    def create_databases(self):
-        parcel_db = ParcelDb(app_config[self.config].DATABASE_URL)
+    def create_user_database(self):
         user_db = UserDb(app_config[self.config].DATABASE_URL)
-        parcel_db.drop_tables()
         user_db.drop_tables()
-        parcel_db.create_tables()
         user_db.create_tables()
-        return parcel_db, user_db
+        return user_db
+
+    def create_parcel_database(self):
+        parcel_db = ParcelDb(app_config[self.config].DATABASE_URL)
+        parcel_db.drop_tables()
+        parcel_db.create_tables()
+        return parcel_db
