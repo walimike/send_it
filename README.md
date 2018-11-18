@@ -13,11 +13,11 @@ SendIT provides courier quotes based on weight categories.
 5. Users can see the details of a delivery order.
 6. Admin can change the status and present location of a parcel delivery order.
 ### Quick Setup
-a) Open your terminal.
-b) Type in the command git clone and paste in this link https://github.com/walimike/send_it.git.
-c) You can now checkout to the develop-v2 branch for version 2 of our API.
-d) Create a virtual environment and then `pip install -r requirements.txt`
-e) Now run the app using `python run.py`
+a) Open your terminal.<br>
+b) Type in the command git clone and paste in this link https://github.com/walimike/send_it.git. <br>
+c) You can now checkout to the develop-v2 branch for version 2 of our API. <br>
+d) Create a virtual environment and then `pip install -r requirements.txt` <br>
+e) Now run the app using `python run.py` <br>
 
 ### API Features:
 
