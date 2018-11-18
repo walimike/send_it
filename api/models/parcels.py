@@ -1,5 +1,5 @@
 from api.models.models import Parcel, User
-from api.models.dbconnection import Dbcontroller
+from api.models.db_controller import Dbcontroller
 class ParcelDb(Dbcontroller):
 
     def __init__(self):
