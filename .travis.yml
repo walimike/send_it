@@ -5,7 +5,7 @@ services:
   - postgresql
 before_script:
 - pip3 install -r requirements.txt
-- psql -c 'create database sendit;' -U postgres
+- psql -c 'create database sendit_db;' -U postgres
 - export FLASK_ENV=development
 script:
 - pytest tests --cov=api --cov-report term-missing
