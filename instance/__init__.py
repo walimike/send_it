@@ -1,28 +1,14 @@
 from instance.config import app_config
 from flask import Flask
-from api.models.parcels import ParcelDb
-from api.models.users import UserDb
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token,
+    get_jwt_identity)
 
 
-class AppSettings:
-
-    def __init__(self,config_name):
-        self.config = config_name
-
-    def create_app(self):
-        app = Flask(__name__, instance_relative_config=True)
-        app.config.from_object(app_config[self.config])
-        app.config.from_pyfile('config.py')
-        return app
-
-    def create_user_database(self):
-        user_db = UserDb(app_config[self.config].DATABASE_URL)
-        user_db.drop_tables()
-        user_db.create_tables()
-        return user_db
-
-    def create_parcel_database(self):
-        parcel_db = ParcelDb(app_config[self.config].DATABASE_URL)
-        parcel_db.drop_tables()
-        parcel_db.create_tables()
-        return parcel_db
+def create_app(config_name):
+    app = Flask(__name__)
+    app.config.from_object(app_config[config_name])
+    app.config.from_pyfile('config.py')
+    app.config['JWT_SECRET_KEY'] = 'super-secret'
+    jwt = JWTManager(app)
+    return app
