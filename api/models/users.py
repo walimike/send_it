@@ -1,4 +1,4 @@
-from api.models.dbconnection import Dbcontroller
+from api.models.db_controller import Dbcontroller
 from api.models.models import User
 
 class UserDb(Dbcontroller):
