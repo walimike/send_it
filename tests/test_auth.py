@@ -12,7 +12,6 @@ class TestApi(unittest.TestCase):
     def setUp(self):
         self.app = app
         self.client = self.app.test_client()
-        user_db.create_tables()
         self.test_user1 = {"Name":"wali","Email":"walimike@ymail.com",\
         "Password":"1234","Role":"Admin"}
 
