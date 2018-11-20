@@ -13,8 +13,8 @@ def make_order():
     user_identiy = get_jwt_identity()
 
     order_request = request.json
-    if is_not_valid_order_json(order_request):
-        return is_not_valid_order_json(order_request)
+    #if is_not_valid_order_json(order_request):
+    #    return is_not_valid_order_json(order_request)
 
     parcel_name = request.json.get('Parcel Name')
     source = request.json.get('Source')
@@ -38,7 +38,20 @@ def fetch_specific_order(parcel_id):
     return jsonify({"Parcel":parcel_db.fetch_parcel(parcel_id)})
 
 @appblueprint.route('/users/parcels', methods=['GET'])
+# has an error for user_id
 @jwt_required
 def fetch_parcel_by_specific_user():
     user_id = get_jwt_identity()['user_id']
     return jsonify({"Parcel":parcel_db.fetch_parcel_by_specific_user(user_id)})
+
+@appblueprint.route('/parcels/<int:parcel_id>/status', methods=['POST'])
+@jwt_required
+def change_order_status(parcel_id):
+    user_role = get_jwt_identity()['role']
+    if user_role.lower() != 'admin':
+        return jsonify({"message":"Unauthorized access"}),401
+    new_status = request.json.get('Status')
+    if not parcel_db.fetch_parcel(parcel_id):
+        return jsonify({"message":"order does not exist"})
+    parcel_db.update_parcel(new_status,parcel_id)
+    return(jsonify({"message":"successfully updated"})),200
