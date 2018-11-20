@@ -29,6 +29,9 @@ def make_order():
 @appblueprint.route('/parcels', methods=['GET'])
 @jwt_required
 def fetch_all_orders():
+    role = get_jwt_identity()['role']
+    if role.lower() != admin:
+        return jsonify({"message":"you are not authorized to access this endpoint"}),401
     return jsonify({"Parcels":parcel_db.fetch_all_orders()}),200
 
 
@@ -65,4 +68,4 @@ def change_order_destination(parcel_id):
     if parcel['usrid'] != user_id:
         return jsonify({"message":"you are not the owner of this parcel"}),400
     parcel_db.update_parcel_destination(destination,parcel_id)
-    return jsonify({"message":"destination successfully changed"}),200    
+    return jsonify({"message":"destination successfully changed"}),200
