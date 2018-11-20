@@ -5,12 +5,11 @@ from tests import app
 from api.views.utilities import user_db
 
 class BaseTestCase(unittest.TestCase):
-    """This class represents the bucketlist test case"""
 
     def setUp(self):
         self.app = app
         self.client = self.app.test_client()
-        with self.app.test_client() as client:
+        with self.app.test_client():
            user_db.create_tables()
            self.test_user1 = {"Name":"wali","Email":"walimike@ymail.com",\
            "Password":"1234","Role":"Admin"}
@@ -36,3 +35,14 @@ class BaseTestCase(unittest.TestCase):
             headers={'Authorization': self.get_token()},
             data=self.test_order)
         self.assertEqual(res.status_code, 201)
+
+def test_can_view_order(self):
+    self.register_user()
+    self.login_user()
+    self.client.post(
+            '/v2/api/parcels', content_type='application/json',
+            headers={'Authorization': self.get_token()},
+            data=self.test_order)
+    response = self.client.get('/users/parcels',content_type='application/json',
+    headers={'Authorization': self.get_token()})
+    self.assertEqual(res.status_code, 201)
