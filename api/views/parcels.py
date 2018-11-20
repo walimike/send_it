@@ -69,3 +69,13 @@ def change_order_destination(parcel_id):
         return jsonify({"message":"you are not the owner of this parcel"}),400
     parcel_db.update_parcel_destination(destination,parcel_id)
     return jsonify({"message":"destination successfully changed"}),200
+
+@appblueprint.route(' /parcels/<int:parcel_id>/presentLocation', methods=['PUT'])
+@jwt_required
+def change_order_present_location(parcel_id):
+    location = request.json['Present Location']
+    role = get_jwt_identity()['role']
+    if user_role.lower() != 'admin':
+        return jsonify({"message":"Unauthorized access"}),401
+    parcel_db.change_location(location,parcel_id)
+    return jsonify({"message":"present location successfully changed"}),200
