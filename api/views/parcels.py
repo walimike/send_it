@@ -44,7 +44,7 @@ def fetch_parcel_by_specific_user():
     user_id = get_jwt_identity()['user_id']
     return jsonify({"Parcel":parcel_db.fetch_parcel_by_specific_user(user_id)})
 
-@appblueprint.route('/parcels/<int:parcel_id>/status', methods=['POST'])
+@appblueprint.route('/parcels/<int:parcel_id>/status', methods=['PUT'])
 @jwt_required
 def change_order_status(parcel_id):
     user_role = get_jwt_identity()['role']
@@ -54,4 +54,15 @@ def change_order_status(parcel_id):
     if not parcel_db.fetch_parcel(parcel_id):
         return jsonify({"message":"order does not exist"})
     parcel_db.update_parcel(new_status,parcel_id)
-    return(jsonify({"message":"successfully updated"})),200
+    return jsonify({"message":"successfully updated"}),200
+
+@appblueprint.route('/parcels/<int:parcel_id>/destination', methods=['PUT'])
+@jwt_required
+def change_order_destination(parcel_id):
+    destination = request.json['Destination']
+    user_id = get_jwt_identity()['user_id']
+    parcel = parcel_db.fetch_specific_order(parcel_id)
+    if parcel['usrid'] != user_id:
+        return jsonify({"message":"you are not the owner of this parcel"}),400
+    parcel_db.update_parcel_destination(destination,parcel_id)
+    return jsonify({"message":"destination successfully changed"}),200    
