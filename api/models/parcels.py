@@ -27,3 +27,10 @@ class ParcelDb(Dbcontroller):
         self.cursor.execute(query, (id,))
         parcels = self.cursor.fetchall()
         return parcels
+
+    def update_parcel(self,status, parcel_id):
+        query = "UPDATE parcels SET parcel_status = '{}' WHERE parcelid  = '{}'".format(status, parcel_id)
+        #query = "UPDATE parcels SET %s = %s WHERE parcelid = %s"
+        self.cursor.execute(query,)
+        parcel = self.cursor.fetchone()
+        return parcel
