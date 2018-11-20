@@ -26,6 +26,8 @@ class BaseTestCase(unittest.TestCase):
         response = self.client.post('/v2/api/auth/login', data=self.test_user1)
         data = json.loads(response.data.decode())
         return 'Bearer ' + data['access_token']
+        print("-------------------------------------------")
+        print(data)
 
     def test_can_make_order(self):
         self.register_user()

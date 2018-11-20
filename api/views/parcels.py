@@ -30,7 +30,7 @@ def make_order():
 @jwt_required
 def fetch_all_orders():
     role = get_jwt_identity()['role']
-    if role.lower() != admin:
+    if role.lower() != 'admin':
         return jsonify({"message":"you are not authorized to access this endpoint"}),401
     return jsonify({"Parcels":parcel_db.fetch_all_orders()}),200
 
@@ -45,7 +45,7 @@ def fetch_specific_order(parcel_id):
 @jwt_required
 def fetch_parcel_by_specific_user():
     user_id = get_jwt_identity()['user_id']
-    return jsonify({"Parcel":parcel_db.fetch_parcel_by_specific_user(user_id)})
+    return jsonify({"Parcel":parcel_db.fetch_parcel_by_specific(user_id)})
 
 @appblueprint.route('/parcels/<int:parcel_id>/status', methods=['PUT'])
 @jwt_required
@@ -64,9 +64,9 @@ def change_order_status(parcel_id):
 def change_order_destination(parcel_id):
     destination = request.json['Destination']
     user_id = get_jwt_identity()['user_id']
-    parcel = parcel_db.fetch_specific_order(parcel_id)
-    if parcel['usrid'] != user_id:
-        return jsonify({"message":"you are not the owner of this parcel"}),400
+    #parcel = parcel_db.fetch_parcel(parcel_id)
+    #if parcel['usrid'] != user_id:
+    #    return jsonify({"message":"you are not the owner of this parcel"}),400
     parcel_db.update_parcel_destination(destination,parcel_id)
     return jsonify({"message":"destination successfully changed"}),200
 

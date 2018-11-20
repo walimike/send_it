@@ -31,15 +31,21 @@ class ParcelDb(Dbcontroller):
     def update_parcel(self,status, parcel_id):
         query = "UPDATE parcels SET parcel_status = '{}' WHERE parcelid  = '{}'".format(status, parcel_id)
         #query = "UPDATE parcels SET %s = %s WHERE parcelid = %s"
-        self.cursor.execute(query,)
-        parcel = self.cursor.fetchone()
-        return parcel
+        try:
+            self.cursor.execute(query,)
+            parcel = self.cursor.fetchone()
+            return parcel
+        except psycopg2.ProgrammingError:
+            return "Order not found"
 
     def update_parcel_destination(self,destination, parcel_id):
         query = "UPDATE parcels SET parcel_destination = '{}' WHERE parcelid  = '{}'".format(destination, parcel_id)
-        self.cursor.execute(query,)
-        parcel = self.cursor.fetchone()
-        return parcel
+        try:
+            self.cursor.execute(query,)
+            parcel = self.cursor.fetchone()
+            return parcel
+        except psycopg2.ProgrammingError:
+            return "Order not found"
 
     def change_location(self,location,parcel_id):
         query = "UPDATE parcels SET present_location = '{}' WHERE parcelid  = '{}'".format(present_location, parcel_id)
