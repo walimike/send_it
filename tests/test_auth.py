@@ -23,13 +23,33 @@ class TestApi(unittest.TestCase):
         self.assertIn('wali', str(response.data))
         self.assertEqual(response.status_code, 201)
 
-    def test_invalid_sign_up(self):
+    def test_invalid_sign_up_name_key(self):
         invalid_user = {"Naame":"wali","Email":"walimike@ymail.com",\
         "Password":"1234","Role":"Admin"}
         response = self.client.post('/v2/api/auth/signup', json = invalid_user)
         self.assertEqual(response.status_code, 400)
-        self.assertIn('Bad request', str(response.data))
+        self.assertIn('Name key word is not in the right format', str(response.data))
 
+    def test_invalid_sign_up_email_key(self):
+        invalid_user = {"Name":"wali","Evmail":"walimike@ymail.com",\
+        "Password":"1234","Role":"Admin"}
+        response = self.client.post('/v2/api/auth/signup', json = invalid_user)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('Email key word is not in the right format', str(response.data))
+
+    def test_invalid_sign_up_name_key(self):
+        invalid_user = {"Name":"wali","Email":"walimike@ymail.com",\
+        "Password":"1234","Roole":"Admin"}
+        response = self.client.post('/v2/api/auth/signup', json = invalid_user)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('Role key word is not in the right format', str(response.data))
+
+    def test_invalid_sign_up_password_key(self):
+        invalid_user = {"Name":"wali","Email":"walimike@ymail.com",\
+        "Passwdaord":"1234","Role":"Admin"}
+        response = self.client.post('/v2/api/auth/signup', json = invalid_user)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('Password key word is not in the right format', str(response.data))
 
     def test_can_login(self):
         self.client.post('/v2/api/auth/signup', json = self.test_user1)

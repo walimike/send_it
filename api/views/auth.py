@@ -27,7 +27,7 @@ def login():
     """{"Name":"","Password":""}"""
     user_input = request.json
     if is_not_valid_login_json(user_input):
-        return is_not_valid_login_json(user_input)
+        return is_not_valid_login_json(user_input),400
 
     password = request.json.get('Password', None)
     username = request.json.get('Name', None)
