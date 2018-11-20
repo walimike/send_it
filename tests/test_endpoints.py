@@ -11,40 +11,31 @@ class BaseTestCase(unittest.TestCase):
         self.client = self.app.test_client()
         with self.app.test_client():
            user_db.create_tables()
-           self.test_user1 = {"Name":"wali","Email":"walimike@ymail.com",\
-           "Password":"1234","Role":"Admin"}
+           self.test_user1 = {"Name":"wali","Email":"walimike@ymail.com","Password":"1234","Role":"Admin"}
            self.test_order ={"Source":"jinja","Destination":"kampala",\
            "Parcel name":"car","Present Location":"masindi","Price":1234}
 
     def register_user(self, ):
-        return self.client.post('/v2/api/auth/signup', data=self.test_user1)
+        response = self.client.post('/v2/api/auth/signup',data=json.dumps(self.test_user1),content_type='application/json' )
+
 
     def login_user(self):
-        return self.client.post('/v2/api/auth/login', data=self.test_user1)
+        return self.client.post('/v2/api/auth/login', data=json.dumps(self.test_user1),content_type='application/json')
 
     def get_token(self):
-        response = self.client.post('/v2/api/auth/login', data=self.test_user1)
+        self.register_user()
+        response = self.login_user()
         data = json.loads(response.data.decode())
         return 'Bearer ' + data['access_token']
-        print("-------------------------------------------")
-        print(data)
+
+
 
     def test_can_make_order(self):
-        self.register_user()
-        self.login_user()
-        res = self.client.post(
-            '/v2/api/parcels', content_type='application/json',
-            headers={'Authorization': self.get_token()},
-            data=self.test_order)
+        res = self.client.post( '/v2/api/parcels', content_type='application/json',
+        headers={'Authorization': self.get_token()}, data=json.dumps(self.test_order))
         self.assertEqual(res.status_code, 201)
 
-def test_can_view_order(self):
-    self.register_user()
-    self.login_user()
-    self.client.post(
-            '/v2/api/parcels', content_type='application/json',
-            headers={'Authorization': self.get_token()},
-            data=self.test_order)
-    response = self.client.get('/users/parcels',content_type='application/json',
-    headers={'Authorization': self.get_token()})
-    self.assertEqual(res.status_code, 201)
+    def test_can_fetch_all_orders(self):
+        res = self.client.get( '/v2/api/parcels', content_type='application/json',
+        headers={'Authorization': self.get_token()}, data=json.dumps(self.test_order))
+        self.assertEqual(res.status_code, 200)   
