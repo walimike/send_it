@@ -1,8 +1,6 @@
 import unittest
-from instance import create_app
-from api.views.auth import  user_db
 from tests import app
-import json
+from api.views.utilities import user_db
 
 class TestApi(unittest.TestCase):
     """
@@ -12,11 +10,15 @@ class TestApi(unittest.TestCase):
     def setUp(self):
         self.app = app
         self.client = self.app.test_client()
-        self.test_user1 = {"Name":"wali","Email":"walimike@ymail.com",\
-        "Password":"1234","Role":"Admin"}
+        with self.app.test_client() as client:
+           user_db.create_tables()
+           #self.post_token = post_auth_header(client)
+           #self.get_token = get_auth_header(client)
+           self.test_user1 = {"Name":"wali","Email":"walimike@ymail.com",\
+           "Password":"1234","Role":"Admin"}
 
     def tearDown(self):
-        pass
+        user_db.drop_tables()
 
     def test_can_sign_up(self):
         response = self.client.post('/v2/api/auth/signup', json = self.test_user1)

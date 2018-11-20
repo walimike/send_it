@@ -29,7 +29,6 @@ class Dbcontroller:
         self.conn.autocommit = True
         self.cursor = self.conn.cursor(cursor_factory=walimike.RealDictCursor)
         print("Successfully connected to"+database_url)
-        self.create_tables()
 
     def create_tables(self):
         """
@@ -44,9 +43,6 @@ class Dbcontroller:
           usrId INTEGER REFERENCES users(usrId), parcel_source varchar(40),\
           parcel_destination varchar(40), present_location varchar(40))"
           #FOREIGN KEY (user_id) REFERENCES users(user_id) )""",
-
-        self.cursor.execute(user_table)
-        self.cursor.execute(parcels_table)
 
         self.cursor.execute(user_table)
         self.cursor.execute(parcels_table)
