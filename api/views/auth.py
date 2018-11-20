@@ -11,7 +11,7 @@ def add_user():
     """{"Name":"","Email":"","Password":"","Role":""}"""
     user_input = request.json
     if is_not_valid_signup_json(user_input):
-        return is_not_valid_signup_json(user_input)
+        return is_not_valid_signup_json(user_input),400
 
     name = request.json.get('Name', None)
     email = request.json.get('Email', None)

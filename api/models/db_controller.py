@@ -29,6 +29,7 @@ class Dbcontroller:
         self.conn.autocommit = True
         self.cursor = self.conn.cursor(cursor_factory=walimike.RealDictCursor)
         print("Successfully connected to"+database_url)
+        self.create_tables()
 
     def create_tables(self):
         """
