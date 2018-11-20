@@ -25,17 +25,21 @@ def add_user():
 @appblueprint.route('/auth/login', methods=['POST'])
 def login():
     """{"Name":"","Password":""}"""
-    if not request.is_json:
-        return jsonify({"msg": "Missing JSON in request"}), 400
+    user_input = request.json
+    if is_not_valid_login_json(user_input):
+        return is_not_valid_login_json(user_input)
+
     password = request.json.get('Password', None)
     username = request.json.get('Name', None)
+
     if not username:
-        return jsonify({"msg": "Missing username parameter"}), 400
+        return jsonify({"message": "Missing username parameter"}), 400
     if not password:
-        return jsonify({"msg": "Missing password parameter"}), 400
+        return jsonify({"message": "Missing password parameter"}), 400
 
     new_user = User(username,' ',password, ' ')
     current_user = user_db.fetch_user(new_user)
+    user = {"user_id":current_user["usrid"],"role":current_user["role"]}
 
-    access_token = create_access_token(identity=current_user["usrid"])
-    return jsonify({"Message":"Successfully loged in"}), 200
+    access_token = create_access_token(identity=user)
+    return jsonify({"access token":access_token}), 200
