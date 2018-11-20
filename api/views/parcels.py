@@ -9,7 +9,6 @@ from api.views.utilities import appblueprint
 @jwt_required
 def make_order():
     """{"Source":"","Destination":"","Parcel name":"","Present Location":"","Price":""}"""
-    """user_identity in form of a dict {""}"""
     user_identiy = get_jwt_identity()
 
     order_request = request.json
@@ -24,7 +23,7 @@ def make_order():
 
     new_parcel = Parcel(parcel_name,price,user_identiy['user_id'],source,destination)
     parcel_db.add_parcel(new_parcel)
-    return jsonify({"Parcels":parcel_db.fetch_all_orders()}), 201
+    return jsonify({"Parcels":parcel_db.fetch_all_orders()}),201
 
 @appblueprint.route('/parcels', methods=['GET'])
 @jwt_required
@@ -68,7 +67,7 @@ def change_order_destination(parcel_id):
     parcel_db.update_parcel_destination(destination,parcel_id)
     return jsonify({"message":"destination successfully changed"}),200
 
-@appblueprint.route(' /parcels/<int:parcel_id>/presentLocation', methods=['PUT'])
+@appblueprint.route('/parcels/<int:parcel_id>/presentlocation', methods=['PUT'])
 @jwt_required
 def change_order_present_location(parcel_id):
     location = request.json['Present Location']

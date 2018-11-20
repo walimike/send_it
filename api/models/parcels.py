@@ -1,5 +1,6 @@
 from api.models.models import Parcel, User
 from api.models.db_controller import Dbcontroller
+
 class ParcelDb(Dbcontroller):
 
     def __init__(self):
@@ -30,25 +31,13 @@ class ParcelDb(Dbcontroller):
 
     def update_parcel(self,status, parcel_id):
         query = "UPDATE parcels SET parcel_status = '{}' WHERE parcelid  = '{}'".format(status, parcel_id)
-        #query = "UPDATE parcels SET %s = %s WHERE parcelid = %s"
-        try:
-            self.cursor.execute(query,)
-            parcel = self.cursor.fetchone()
-            return parcel
-        except psycopg2.ProgrammingError:
-            return "Order not found"
+        self.cursor.execute(query,)
 
     def update_parcel_destination(self,destination, parcel_id):
         query = "UPDATE parcels SET parcel_destination = '{}' WHERE parcelid  = '{}'".format(destination, parcel_id)
-        try:
-            self.cursor.execute(query,)
-            parcel = self.cursor.fetchone()
-            return parcel
-        except psycopg2.ProgrammingError:
-            return "Order not found"
+        self.cursor.execute(query,)
 
     def change_location(self,location,parcel_id):
-        query = "UPDATE parcels SET present_location = '{}' WHERE parcelid  = '{}'".format(present_location, parcel_id)
+        #look for method for returning highest id
+        query = "UPDATE parcels SET present_location = '{}' WHERE parcelid  = '{}'".format(location, parcel_id)
         self.cursor.execute(query,)
-        parcel = self.cursor.fetchone()
-        return parcel
