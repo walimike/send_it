@@ -10,13 +10,6 @@ class UserDb(Dbcontroller):
         self.cursor.execute("INSERT INTO users(username,email,password,role) VALUES\
         (%s, %s, %s, %s);",(new_user.name,new_user.email,new_user.password,new_user.role))
 
-    def fetch_user(self,name):
-        """Returns a user in form of a dict or None if user not found"""
-        query = "SELECT * FROM users WHERE username=%s"
-        self.cursor.execute(query, (name,))
-        user = self.cursor.fetchone()
-        return user
-
     def fetch_user(self,user):
         """Returns a user in form of a dict or None if user not found"""
         query = "SELECT * FROM users WHERE username=%s"
