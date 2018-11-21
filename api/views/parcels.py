@@ -62,8 +62,10 @@ def change_order_destination(parcel_id):
     destination = request.json['Destination']
     user_id = get_jwt_identity()['user_id']
     parcel = parcel_db.fetch_parcel(parcel_id)
+    if not parcel:
+        return jsonify({"message":"parcel of this ID not found"}),404
     if parcel['usrid'] != user_id:
-        return jsonify({"message":"you are not the owner of this parcel"}),400
+        return jsonify({"message":"you do not have authorization over this parcel"})    
     parcel_db.update_parcel_destination(destination,parcel_id)
     return jsonify({"message":"destination successfully changed"}),200
 
@@ -72,7 +74,7 @@ def change_order_destination(parcel_id):
 def change_order_present_location(parcel_id):
     location = request.json['Present Location']
     role = get_jwt_identity()['role']
-    if user_role.lower() != 'admin':
+    if role.lower() != 'admin':
         return jsonify({"message":"Unauthorized access"}),401
     parcel_db.change_location(location,parcel_id)
     return jsonify({"message":"present location successfully changed"}),200
