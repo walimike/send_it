@@ -1,11 +1,10 @@
 from api.views.utilities import parcel_db, user_db, is_not_valid_login_key_word,\
-is_not_valid_signup_key_word, is_not_valid_user_details
+is_not_valid_signup_key_word, is_not_valid_user_login_details, is_not_valid_user_details
 from flask import Blueprint, jsonify, abort, request, json
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
     get_jwt_identity)
 from api.views.utilities import appblueprint
 from api.models.models import User
-
 
 @appblueprint.route('/auth/signup', methods=['POST'])
 def add_user():
@@ -15,7 +14,7 @@ def add_user():
         return is_not_valid_signup_key_word(user_input),400
 
     if is_not_valid_user_details(user_input):
-        return is_not_user_details(user_input),400
+        return is_not_valid_user_details(user_input),400
 
     name = request.json.get('Name', None)
     email = request.json.get('Email', None)
@@ -34,7 +33,7 @@ def login():
         return is_not_valid_login_key_word(user_input),400
 
     if is_not_valid_user_login_details(user_input):
-        return is_not_user_login_details(user_input),400
+        return is_not_valid_user_login_details(user_input),400
 
     password = request.json.get('Password', None)
     username = request.json.get('Name', None)

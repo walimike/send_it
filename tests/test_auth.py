@@ -15,14 +15,14 @@ class TestApi(unittest.TestCase):
            #self.post_token = post_auth_header(client)
            #self.get_token = get_auth_header(client)
            self.test_user1 = {"Name":"wali","Email":"walimike@ymail.com",\
-           "Password":"1234","Role":"Admin"}
+           "Password":"12safgerg34","Role":"Admin"}
 
     def tearDown(self):
         user_db.drop_tables()
 
     def test_can_sign_up(self):
         response = self.client.post('/v2/api/auth/signup', json = self.test_user1)
-        self.assertIn('wali', str(response.data))
+        self.assertIn('you have successfully signed up', str(response.data))
         self.assertEqual(response.status_code, 201)
 
     def test_invalid_sign_up_name_key(self):
@@ -55,7 +55,7 @@ class TestApi(unittest.TestCase):
 
     def test_can_login(self):
         self.client.post('/v2/api/auth/signup', json = self.test_user1)
-        login_credentials = {"Name":"wali","Password":"1dr234"}
+        login_credentials = {"Name":"wali","Password":"1dr23ifssdfs4"}
         response = self.client.post('/v2/api/auth/login', json = login_credentials)
         self.assertEqual(response.status_code, 200)
 

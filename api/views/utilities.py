@@ -13,8 +13,8 @@ is_valid = Validator()
 """These functions below validate the json input data and return user friendly responses"""
 
 def is_not_valid_signup_key_word(json_input):
-    if is_not_valid_login(json_input):
-        return is_not_valid_login(json_input)
+    if is_not_valid_login_key_word(json_input):
+        return is_not_valid_login_key_word(json_input)
     if not json_input.get('Email'):
         return jsonify({"message":"Email key word is not in the right format"})
     if not json_input.get('Role'):
@@ -61,8 +61,8 @@ def is_not_valid_user_details(user_dict):
         return jsonify({"message":"email not in the right format"})
     if not is_valid.password(user_dict.get('Password')):
         return jsonify({"message":"an error occured in Password input"})
-    if user_dict.get('Role') != 'admin' or user_dict.get('Role') != 'user':
-        return jsonify({"message":"role can either be user or admin only"})
+    #if user_dict.get('Role').lower() != 'admin' or user_dict.get('Role').lower() != 'user':
+        #return jsonify({"message":"role can either be user or admin only"})
 
 def is_not_valid_user_login_details(user_dict):
     if not is_valid.password(user_dict.get('Password')):

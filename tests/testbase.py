@@ -12,7 +12,7 @@ class BaseTestCase(unittest.TestCase):
         with self.app.test_client():
            user_db.create_tables()
            self.test_user1 = {"Name":"wali","Email":"walimike@ymail.com",\
-           "Password":"1234","Role":"Admin"}
+           "Password":"wrej@jafcd","Role":"admin"}
            self.test_order ={"Source":"jinja","Destination":"kampala",\
            "Parcel name":"car","Present Location":"masindi","Price":1234}
 

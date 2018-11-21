@@ -29,5 +29,5 @@ class Validator:
                 return number
 
     def password(self,password):
-        if len(password)>8 and isinstance(str,password):
-            return password            
+        if len(password)>8:
+            return password
