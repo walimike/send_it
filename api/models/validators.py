@@ -1,4 +1,3 @@
-from model import Parcel
 from validate_email import validate_email
 from flask import jsonify
 
@@ -7,16 +6,18 @@ class Validator:
     Validates the various user input before passing it to the parcellist.
     """
 
-    def input_fields(self,owner,parcel_name,source,destination):
+    def input_fields(self,parcel_name,source,destination,present_location,price):
         """Returns the input fields or none if input is not valid"""
-        if not self.pure_text(owner):
-            return jsonify({"message":""})
+        if not self.pure_text(parcel_name):
+            return jsonify({"message":"an error occured in Parcel Name input"})
         if not self.pure_text(source):
-            return jsonify({"message":""})
+            return jsonify({"message":"an error occured in Source input"})
         if not self.pure_text(destination):
-            return jsonify({"message":""})
-        if not self.normal_string(parcel_name):
-            return jsonify("message":"")
+            return jsonify({"message":"an error occured in Destination input"})
+        if not self.normal_string(present_location):
+            return jsonify({"message":"an error occured in Precent Location input"})
+        if not self.integer(price):
+            return jsonify({"message":"an error occured in Price input"})
 
 
     def pure_text(self,text):
@@ -40,3 +41,8 @@ class Validator:
     def email(self,email):
         if validate_email(email) == True:
             return email
+
+    def integer(self,number):
+        if isinstance(number, int):
+            if number > 0:
+                return number

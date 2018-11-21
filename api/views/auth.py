@@ -1,4 +1,4 @@
-from api.views.utilities import parcel_db, user_db, is_not_valid_login_json,is_not_valid_signup_json
+from api.views.utilities import parcel_db, user_db, is_not_valid_login,is_not_valid_signup
 from flask import Blueprint, jsonify, abort, request, json
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
     get_jwt_identity)
@@ -10,8 +10,8 @@ from api.models.models import User
 def add_user():
     """{"Name":"","Email":"","Password":"","Role":""}"""
     user_input = request.json
-    if is_not_valid_signup_json(user_input):
-        return is_not_valid_signup_json(user_input),400
+    if is_not_valid_signup(user_input):
+        return is_not_valid_signup(user_input),400
 
     name = request.json.get('Name', None)
     email = request.json.get('Email', None)
@@ -26,8 +26,8 @@ def add_user():
 def login():
     """{"Name":"","Password":""}"""
     user_input = request.json
-    if is_not_valid_login_json(user_input):
-        return is_not_valid_login_json(user_input),400
+    if is_not_valid_login(user_input):
+        return is_not_valid_login(user_input),400
 
     password = request.json.get('Password', None)
     username = request.json.get('Name', None)

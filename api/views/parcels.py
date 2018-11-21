@@ -1,8 +1,7 @@
 from flask import jsonify, abort, request, json
-from api.views.utilities import appblueprint, parcel_db, is_not_valid_order_json
+from api.views.utilities import appblueprint, parcel_db, is_not_valid_order_key, is_not_valid_order
 from api.models.models import Parcel
 from flask_jwt_extended import jwt_required,get_jwt_identity
-from api.views.utilities import appblueprint
 
 
 @appblueprint.route('/parcels', methods=['POST'])
@@ -12,8 +11,11 @@ def make_order():
     user_identiy = get_jwt_identity()
 
     order_request = request.json
-    if is_not_valid_order_json(order_request):
-        return is_not_valid_order_json(order_request)
+    if is_not_valid_order_key(order_request):
+        return is_not_valid_order_key(order_request)
+
+    if is_not_valid_order(order_request):
+        return is_not_valid_order_key(order_request)
 
     parcel_name = request.json.get('Parcel Name')
     source = request.json.get('Source')
@@ -36,7 +38,10 @@ def fetch_all_orders():
 @appblueprint.route('/parcels/<int:parcel_id>', methods=['GET'])
 @jwt_required
 def fetch_specific_order(parcel_id):
-    return jsonify({"Parcel":parcel_db.fetch_parcel(parcel_id)}),200
+    parcel = parcel_db.fetch_parcel(parcel_id)
+    if not parcel:
+        return jsonify({"message":"parcel not found"})
+    return jsonify({"Parcel":parcel}),200
 
 @appblueprint.route('/users/parcels', methods=['GET'])
 @jwt_required
@@ -51,6 +56,8 @@ def change_order_status(parcel_id):
     if user_role.lower() != 'admin':
         return jsonify({"message":"Unauthorized access"}),401
     new_status = request.json.get('Status')
+    if new_status != 'cancel':
+        return jsonify({"message":"status can only be canceled"}),400
     if not parcel_db.fetch_parcel(parcel_id):
         return jsonify({"message":"order does not exist"})
     parcel_db.update_parcel(new_status,parcel_id)
@@ -65,7 +72,7 @@ def change_order_destination(parcel_id):
     if not parcel:
         return jsonify({"message":"parcel of this ID not found"}),404
     if parcel['usrid'] != user_id:
-        return jsonify({"message":"you do not have authorization over this parcel"})    
+        return jsonify({"message":"you do not have authorization over this parcel"})
     parcel_db.update_parcel_destination(destination,parcel_id)
     return jsonify({"message":"destination successfully changed"}),200
 
