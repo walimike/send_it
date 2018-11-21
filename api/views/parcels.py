@@ -15,7 +15,7 @@ def make_order():
         return is_not_valid_order_key(order_request)
 
     if is_not_valid_order(order_request):
-        return is_not_valid_order_key(order_request)
+        return is_not_valid_order(order_request)
 
     parcel_name = request.json.get('Parcel Name')
     source = request.json.get('Source')
@@ -56,6 +56,7 @@ def change_order_status(parcel_id):
     if user_role.lower() != 'admin':
         return jsonify({"message":"Unauthorized access"}),401
     new_status = request.json.get('Status')
+
     if new_status != 'cancel':
         return jsonify({"message":"status can only be canceled"}),400
     if not parcel_db.fetch_parcel(parcel_id):
@@ -69,6 +70,7 @@ def change_order_destination(parcel_id):
     destination = request.json['Destination']
     user_id = get_jwt_identity()['user_id']
     parcel = parcel_db.fetch_parcel(parcel_id)
+
     if not parcel:
         return jsonify({"message":"parcel of this ID not found"}),404
     if parcel['usrid'] != user_id:
