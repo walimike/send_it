@@ -1,48 +1,48 @@
+from .testbase import BaseTestCase
 import unittest
-import os
 import json
 from tests import app
 from api.views.utilities import user_db
+import os
 
-class BaseTestCase(unittest.TestCase):
+class EndPointTests(BaseTestCase):
 
-    def setUp(self):
-        self.app = app
-        self.client = self.app.test_client()
-        with self.app.test_client():
-           user_db.create_tables()
-           self.test_user1 = {"Name":"wali","Email":"walimike@ymail.com",\
-           "Password":"1234","Role":"Admin"}
-           self.test_order ={"Source":"jinja","Destination":"kampala",\
-           "Parcel name":"car","Present Location":"masindi","Price":1234}
-
-    def register_user(self, ):
-        return self.client.post('/v2/api/auth/signup', data=self.test_user1)
-
-    def login_user(self):
-        return self.client.post('/v2/api/auth/login', data=self.test_user1)
-
-    def get_token(self):
-        response = self.client.post('/v2/api/auth/login', data=self.test_user1)
-        data = json.loads(response.data.decode())
-        return 'Bearer ' + data['access_token']
-
+    """
     def test_can_make_order(self):
-        self.register_user()
-        self.login_user()
-        res = self.client.post(
-            '/v2/api/parcels', content_type='application/json',
-            headers={'Authorization': self.get_token()},
-            data=self.test_order)
+        res = self.make_valid_order()
         self.assertEqual(res.status_code, 201)
+    """
 
-def test_can_view_order(self):
-    self.register_user()
-    self.login_user()
-    self.client.post(
-            '/v2/api/parcels', content_type='application/json',
-            headers={'Authorization': self.get_token()},
-            data=self.test_order)
-    response = self.client.get('/users/parcels',content_type='application/json',
-    headers={'Authorization': self.get_token()})
-    self.assertEqual(res.status_code, 201)
+    def test_can_fetch_all_orders(self):
+        res = self.fetch_all_orders()
+        self.assertEqual(res.status_code, 200)
+
+    def test_can_change_present_location(self):
+        res = self.change_order_location()
+        self.assertEqual(res.status_code, 200)
+
+    def test_can_not_change_order_destinstion_not_found(self):
+        res = self.change_order_destination()
+        self.assertEqual(res.status_code, 404)
+
+    def test_can_change_order_status(self):
+        res = self.change_order_status()
+        self.assertEqual(res.status_code, 200)
+
+    def test_can_fetch_all_orders_by_specific_user(self):
+        self.make_valid_order()
+        res = self.client.get( '/v2/api/users/parcels', content_type='application/json',\
+        headers={'Authorization': self.get_token()})
+        self.assertEqual(res.status_code, 200)
+
+    def test_can_fetch_specific_order(self):
+        self.make_valid_order()
+        res = self.client.get( '/v2/api/parcels/1', content_type='application/json',\
+        headers={'Authorization': self.get_token()})
+        self.assertEqual(res.status_code, 200)
+
+    def test_can_fetch_all_orders(self):
+        self.make_valid_order()
+        res = self.client.get( '/v2/api/parcels', content_type='application/json',\
+        headers={'Authorization': self.get_token()})
+        self.assertEqual(res.status_code, 200)
