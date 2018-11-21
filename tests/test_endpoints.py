@@ -1,11 +1,11 @@
-from tests.testbase import BaseTestCase
+from tests.test_base import BaseTestCase
 import unittest
 import json
 from tests import app
 from api.views.utilities import user_db
 import os
 
-class EndPointTests(BaseTestCase):
+class EndTests(BaseTestCase):
 
     def test_can_make_order(self):
         res = self.make_valid_order()
