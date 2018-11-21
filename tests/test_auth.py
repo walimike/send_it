@@ -1,6 +1,6 @@
 import unittest
 from tests import app
-from api.views.utilities import user_db
+from api.views.utilities import user_db, parcel_db
 
 class TestApi(unittest.TestCase):
     """
@@ -62,4 +62,8 @@ class TestApi(unittest.TestCase):
         response = self.client.post('/v2/api/auth/login', json = {})
         self.assertEqual(response.status_code, 400)
         response = self.client.post('/v2/api/auth/login', json = {"Name":"wali","Password":""})
+        self.assertEqual(response.status_code, 400)
+        response = self.client.post('/v2/api/auth/login', json = {"Naaame":"wali","Password":"ssafggrtrssv"})
+        self.assertEqual(response.status_code, 400)
+        response = self.client.post('/v2/api/auth/login', json = {"Name":"wali","Pazvvssword":"serteseytsgsd"})
         self.assertEqual(response.status_code, 400)

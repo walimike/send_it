@@ -1,4 +1,4 @@
-from .testbase import BaseTestCase
+from tests.testbase import BaseTestCase
 import unittest
 import json
 from tests import app
