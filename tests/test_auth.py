@@ -12,8 +12,6 @@ class TestApi(unittest.TestCase):
         self.client = self.app.test_client()
         with self.app.test_client() as client:
            user_db.create_tables()
-           #self.post_token = post_auth_header(client)
-           #self.get_token = get_auth_header(client)
            self.test_user1 = {"Name":"wali","Email":"walimike@ymail.com",\
            "Password":"12safgerg34","Role":"Admin"}
 

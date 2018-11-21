@@ -20,7 +20,9 @@ def add_user():
     email = request.json.get('Email', None)
     password = request.json.get('Password', None)
     role = request.json.get('Role', None)
-
+    if role.lower() != 'admin':
+        if role.lower() != 'user':
+            return jsonify({"message":"role can either be admin or user"})
     new_user = User(name,email,password,role)
     user_db.add_user(new_user)
     return jsonify({"message":"you have successfully signed up"}),201
