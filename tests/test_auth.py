@@ -23,6 +23,14 @@ class TestApi(unittest.TestCase):
         self.assertIn('you have successfully signed up', str(response.data))
         self.assertEqual(response.status_code, 201)
 
+    def test_cannot_sign_up_twice(self):
+        response = self.client.post('/v2/api/auth/signup', json = self.test_user1)
+        self.assertIn('you have successfully signed up', str(response.data))
+        self.assertEqual(response.status_code, 201)
+        response = self.client.post('/v2/api/auth/signup', json = self.test_user1)
+        self.assertIn('user already exists with this credentials', str(response.data))
+        self.assertEqual(response.status_code, 400)
+
     def test_invalid_sign_up_name_key(self):
         invalid_user = {"Naame":"wali","email":"walimike@ymail.com",\
         "password":"1234"}
