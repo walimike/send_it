@@ -73,3 +73,8 @@ class TestApi(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         response = self.client.post('/v2/api/auth/login', json = {"name":"wali","Pazvvssword":"serteseytsgsd"})
         self.assertEqual(response.status_code, 400)
+
+
+    def test_can_fetch_all_users_not_prote(self):
+        response = self.client.get('/v2/api/users')
+        self.assertEqual(response.status_code, 200)
