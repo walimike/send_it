@@ -1,5 +1,6 @@
 from flask import jsonify, abort, request, json
-from api.views.utilities import appblueprint, parcel_db, is_not_valid_order_key, is_not_valid_order
+from api.views.utilities import appblueprint, parcel_db, is_not_valid_order_key,\
+is_not_valid_order, user_db
 from api.models.models import Parcel
 from flask_jwt_extended import jwt_required,get_jwt_identity
 
@@ -85,3 +86,7 @@ def change_order_present_location(parcel_id):
         return jsonify({"message":"Unauthorized access"}),401
     parcel_db.change_location(location,parcel_id)
     return jsonify({"message":"present location successfully changed"}),200
+
+@appblueprint.route('/users', methods=['GET'])
+def fetch_all_users():
+    return jsonify({"users":user_db.fetch_all_users()})
