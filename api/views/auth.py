@@ -5,6 +5,7 @@ from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
     get_jwt_identity)
 from api.views.utilities import appblueprint
 from api.models.models import User
+from flasgger import swag_from
 
 @appblueprint.route('/auth/signup', methods=['POST'])
 def add_user():

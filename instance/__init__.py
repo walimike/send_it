@@ -1,3 +1,4 @@
+from flasgger import Swagger
 from instance.config import app_config
 from flask import Flask
 from flask_jwt_extended import (
@@ -11,4 +12,5 @@ def create_app(config_name):
     app.config.from_pyfile('config.py')
     app.config['JWT_SECRET_KEY'] = 'super-secret'
     jwt = JWTManager(app)
+    Swagger(app)
     return app

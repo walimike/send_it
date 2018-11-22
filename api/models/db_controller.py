@@ -30,6 +30,8 @@ class Dbcontroller:
         self.cursor = self.conn.cursor(cursor_factory=walimike.RealDictCursor)
         print("Successfully connected to"+database_url)
 
+        self.create_tables()
+
     def create_tables(self):
         """
         method creates tables
@@ -58,13 +60,10 @@ class Dbcontroller:
 
     def fetch_all_entries(self,table_name):
         """ Fetches all entries from the database"""
-        try:
-            query = ("SELECT * FROM %s;") %(table_name)
-            self.cursor.execute(query)
-            rows = self.cursor.fetchall()
-            return rows
-        except (Exception, psycopg2.DatabaseError)as Error:
-            raise Error
+        query = ("SELECT * FROM %s;") %(table_name)
+        self.cursor.execute(query)
+        rows = self.cursor.fetchall()
+        return rows
 
     def fetch_specific(self,tablename,value):
         """Returns a user in form of a dict or None if user not found"""
