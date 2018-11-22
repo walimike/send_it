@@ -27,6 +27,7 @@ def add_user():
 
 
 @appblueprint.route('/auth/login', methods=['POST'])
+@swag_from('../docs/signin.yml')
 def login():
 
     user_input = request.json
