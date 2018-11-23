@@ -90,19 +90,3 @@ def change_order_present_location(parcel_id):
 @appblueprint.route('/users', methods=['GET'])
 def fetch_all_users():
     return jsonify({"users":db_conn.fetch_all_users()})
-
-@appblueprint.route('/test/parcels', methods=['GET'])
-def test_all_parcels():
-    return jsonify({"test parcels":db_conn.fetch_all_orders()})
-
-@appblueprint.route('/test/<int:parcel_id>/status', methods=['PUT'])
-def test_update_parcels(parcel_id):
-    new_status = request.json.get('status')
-    db_conn.update_parcel('parcel_status',new_status,parcel_id)
-    return jsonify({"message":"successfully updated"}),200
-
-@appblueprint.route('/test/<int:parcel_id>/location', methods=['PUT'])
-def test_update_location(parcel_id):
-    location = request.json.get('location')
-    db_conn.update_parcel('present_location',location,parcel_id)
-    return jsonify({"message":"successfully updated"}),200

@@ -28,18 +28,34 @@ class BaseTestCase(unittest.TestCase):
         response = self.client.post('/v2/api/auth/signup',\
         data=json.dumps(self.test_user1),content_type='application/json' )
 
+    def register_user2(self):
+        response = self.client.post('/v2/api/auth/signup',\
+        data=json.dumps(self.test_user2),content_type='application/json' )
+
     def login_user(self):
         return self.client.post('/v2/api/auth/login',\
          data=json.dumps(self.test_user1),content_type='application/json')
 
-    def get_token(self):
-        self.register_user()
-        response = self.login_user()
+    def login_user2(self):
+        return self.client.post('/v2/api/auth/login',\
+         data=json.dumps(self.test_user2),content_type='application/json')
+
+    def get_admin_token(self):
+        admin={"name":"admin","password":"@H@nN@H92"}
+        re = self.client.post('/v2/api/auth/login',\
+        data=json.dumps(admin),content_type='application/json')
+        data = json.loads(re.data.decode())
+        return 'Bearer ' + data['access_token']
+
+    def get_token2(self):
+        self.register_user2()
+        response = self.login_user2()
         data = json.loads(response.data.decode())
         return 'Bearer ' + data['access_token']
 
-    def get_admin_token(self):
-        response = self.admin_login()
+    def get_token(self):
+        self.register_user()
+        response = self.login_user()
         data = json.loads(response.data.decode())
         return 'Bearer ' + data['access_token']
 

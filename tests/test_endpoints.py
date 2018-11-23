@@ -109,18 +109,43 @@ class EndTests(BaseTestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn("an error occured in price input",str(response.data))
 
-    def test_can_fetch_all_parcels(self):
-        response = self.client.get('/v2/api/test/parcels')
-        self.assertEqual(response.status_code,200)
-
-    def test_can_update_parcels(self):
-        self.make_valid_order()
-        response = self.client.put('/v2/api/test/1/status', json={'status':'cancel'})
-        self.assertEqual(response.status_code,200)
-        self.assertIn("successfully updated",str(response.data))
-
     def test_can_update_location(self):
         self.make_valid_order()
-        response = self.client.put('/v2/api/test/1/location', json={'location':'lira'})
-        self.assertEqual(response.status_code,200)
-        self.assertIn("successfully updated",str(response.data))
+        res = self.client.put( '/v2/api/parcels/1/presentlocation', json={'present_location':'lira'}, content_type='application/json',\
+        headers={'Authorization': self.get_admin_token()})
+        self.assertEqual(res.status_code,200)
+        self.assertIn("present location successfully changed",str(res.data))
+
+    def test_can_fetch_all_orders(self):
+        self.make_valid_order()
+        res = self.client.get( '/v2/api/parcels', content_type='application/json',\
+        headers={'Authorization': self.get_admin_token()})
+        self.assertEqual(res.status_code,200)
+
+    def test_can_change_order_status(self):
+        self.make_valid_order()
+        res = self.client.put( '/v2/api/parcels/1/cancel', json={'status':'cancel'},content_type='application/json',\
+        headers={'Authorization': self.get_admin_token()})
+        self.assertEqual(res.status_code,200)
+        self.assertIn("successfully updated",str(res.data))
+
+    def test_change_wrong_order_status(self):
+        self.make_valid_order()
+        res = self.client.put( '/v2/api/parcels/1/cancel', json={'status':'wrong'},content_type='application/json',\
+        headers={'Authorization': self.get_admin_token()})
+        self.assertEqual(res.status_code,400)
+        self.assertIn("status can only be canceled",str(res.data))
+
+    def test_change_order_status_doesnot_exist(self):
+        self.make_valid_order()
+        res = self.client.put( '/v2/api/parcels/5/cancel', json={'status':'cancel'},content_type='application/json',\
+        headers={'Authorization': self.get_admin_token()})
+        self.assertEqual(res.status_code,404)
+        self.assertIn("order does not exist",str(res.data))
+
+    def test_cannot_change_destination_by_wrong_user(self):
+        self.make_valid_order()
+        res = self.client.put( '/v2/api/parcels/1/destination', json={'destination':'kabarole'},content_type='application/json',\
+        headers={'Authorization': self.get_token2()})
+        self.assertEqual(res.status_code,401)
+        self.assertIn("you do not have authorization over this parcel",str(res.data))
