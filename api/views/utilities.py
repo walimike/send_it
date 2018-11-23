@@ -1,13 +1,12 @@
-from api.models.parcels import ParcelDb
 from api.models.models import User
-from api.models.users import UserDb
+from api.models.db_controller import Dbcontroller
 from flask import Blueprint,jsonify
 from api.models.validators import Validator
 
 appblueprint = Blueprint('api',__name__)
 
-parcel_db = ParcelDb()
-user_db = UserDb()
+
+db_conn = Dbcontroller()
 is_valid = Validator()
 
 

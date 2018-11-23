@@ -1,4 +1,4 @@
-from api.views.utilities import parcel_db, user_db, is_not_valid_login_key_word,\
+from api.views.utilities import db_conn, is_not_valid_login_key_word,\
 is_not_valid_signup_key_word, is_not_valid_user_login_details, is_not_valid_user_details
 from flask import Blueprint, jsonify, abort, request, json
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
@@ -22,10 +22,10 @@ def add_user():
 
     new_user = User(name,email,password,'user')
 
-    if user_db.fetch_user(new_user):
+    if db_conn.fetch_user(new_user):
         return jsonify({"message":"user already exists with this credentials"}),400
 
-    user_db.add_user(new_user)
+    db_conn.add_user(new_user)
     return jsonify({"message":"you have successfully signed up"}),201
 
 
@@ -43,7 +43,7 @@ def login():
     username = request.json.get('name', None)
 
     new_user = User(username,' ',password,'user')
-    current_user = user_db.fetch_user(new_user)
+    current_user = db_conn.fetch_user(new_user)
     if not current_user:
         return jsonify({"message":"user does not exist, do you want to signup"}),404
 

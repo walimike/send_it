@@ -1,6 +1,6 @@
 import unittest
 from tests import app
-from api.views.utilities import user_db, parcel_db
+from api.views.utilities import db_conn
 
 class TestApi(unittest.TestCase):
     """
@@ -11,12 +11,12 @@ class TestApi(unittest.TestCase):
         self.app = app
         self.client = self.app.test_client()
         with self.app.test_client() as client:
-           user_db.create_tables()
+           db_conn.create_tables()
            self.test_user1 = {"name":"wali","email":"walimike@ymail.com",\
            "password":"12safgerg34"}
 
     def tearDown(self):
-        user_db.drop_tables()
+        db_conn.drop_tables()
 
     def test_can_sign_up(self):
         response = self.client.post('/v2/api/auth/signup', json = self.test_user1)
@@ -30,6 +30,16 @@ class TestApi(unittest.TestCase):
         response = self.client.post('/v2/api/auth/signup', json = self.test_user1)
         self.assertIn('user already exists with this credentials', str(response.data))
         self.assertEqual(response.status_code, 400)
+
+    def test_user_does_not_exist(self):
+        response = self.client.post('/v2/api/auth/signup', json = self.test_user1)
+        self.assertIn('you have successfully signed up', str(response.data))
+        self.assertEqual(response.status_code, 201)
+        unknown_user = {"name":"nantume","email":"nantume@ymail.com","password":"12safgerg34"}
+        response = self.client.post('/v2/api/auth/login', json = unknown_user)
+        self.assertIn('user does not exist, do you want to signup', str(response.data))
+        self.assertEqual(response.status_code, 404)
+
 
     def test_invalid_sign_up_name_key(self):
         invalid_user = {"Naame":"wali","email":"walimike@ymail.com",\

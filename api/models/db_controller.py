@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 import psycopg2
 import psycopg2.extras as walimike
 from api import app
-
+from api.models.models import User
 
 class Dbcontroller:
     """
@@ -30,6 +30,8 @@ class Dbcontroller:
         self.cursor = self.conn.cursor(cursor_factory=walimike.RealDictCursor)
         print("Successfully connected to"+database_url)
         self.create_tables()
+        admin_user = User('adminuser','admin@gmail.com','@H@nN@H92','admin')
+        self.add_user(admin_user)
 
     def create_tables(self):
         """
@@ -67,9 +69,48 @@ class Dbcontroller:
         except (Exception, psycopg2.DatabaseError)as Error:
             raise Error
 
-    def fetch_specific(self,tablename,value):
+    def add_user(self,new_user):
+        self.cursor.execute("INSERT INTO users(username,email,password,role) VALUES\
+        (%s, %s, %s, %s);",(new_user.name,new_user.email,new_user.password,new_user.role))
+
+    def fetch_user(self,user):
         """Returns a user in form of a dict or None if user not found"""
-        query = "SELECT * FROM %s WHERE username=%s"
-        self.cursor.execute(query, (tablename,value,))
-        value = self.cursor.fetchone()
-        return value
+        query = "SELECT * FROM users WHERE username=%s"
+        self.cursor.execute(query, (user.name,))
+        user = self.cursor.fetchone()
+        return user
+
+    def fetch_all_users(self):
+        return self.fetch_all_entries('users')
+
+    def add_parcel(self,parcel):
+        self.cursor.execute("INSERT INTO parcels(parcel_name,price,\
+        parcel_status,usrId,parcel_source,parcel_destination,present_location)\
+        VALUES(%s, %s, %s, %s, %s, %s, %s);",(parcel.name,parcel.price,\
+        parcel.status,parcel.id,parcel.source,parcel.destination,parcel.location))
+
+    def fetch_all_orders(self):
+        return self.fetch_all_entries('parcels')
+
+    def fetch_parcel(self,id):
+        """Returns a user in form of a dict or None if user not found"""
+        query = "SELECT * FROM parcels WHERE parcelid=%s"
+        self.cursor.execute(query, (id,))
+        parcel = self.cursor.fetchone()
+        return parcel
+
+    def fetch_parcel_by_specific(self,id):
+        """Returns a user in form of a dict or None if user not found"""
+        query = "SELECT * FROM parcels WHERE usrid=%s"
+        self.cursor.execute(query, (id,))
+        parcels = self.cursor.fetchall()
+        return parcels
+
+    def update_parcel(self,column,value, parcel_id):
+            if column == 'parcel_destination':
+                query = "UPDATE parcels SET parcel_destination = '{}' WHERE parcelid  = '{}'".format(value, parcel_id)
+            elif column == 'parcel_status':
+                query = "UPDATE parcels SET parcel_status = '{}' WHERE parcelid  = '{}'".format(value, parcel_id)
+            elif column == 'present_location':
+                query = "UPDATE parcels SET present_location = '{}' WHERE parcelid  = '{}'".format(value, parcel_id)
+            self.cursor.execute(query,)

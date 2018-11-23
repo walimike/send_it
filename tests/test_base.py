@@ -1,7 +1,7 @@
 import unittest
 import json
 from tests import app
-from api.views.utilities import user_db
+from api.views.utilities import db_conn
 import os
 from api.models.models import User
 
@@ -13,15 +13,15 @@ class BaseTestCase(unittest.TestCase):
         self.client = self.app.test_client()
         with self.app.test_client():
             admin_user = User('admin','admin@gmail.com','@H@nN@H92','admin')
-            user_db.create_tables()
-            user_db.add_user(admin_user)
+            db_conn.create_tables()
+            db_conn.add_user(admin_user)
             self.test_user1 = {"name":"wali","email":"walimike@ymail.com",\
             "password":"wrej@jafcd"}
             self.test_order ={"source":"jinja","destination":"kampala",\
             "parcel_name":"car","price":1234}
 
     def tearDown(self):
-        user_db.drop_tables()
+        db_conn.drop_tables()
 
     def register_user(self):
         response = self.client.post('/v2/api/auth/signup',\
