@@ -1,6 +1,6 @@
 import unittest
 from tests import app
-from api.views.utilities import db_conn
+from api.views import db_conn
 
 class TestApi(unittest.TestCase):
     """

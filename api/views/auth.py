@@ -1,9 +1,9 @@
-from api.views.utilities import db_conn, is_not_valid_login_key_word,\
+from api.views import db_conn, is_not_valid_login_key_word,\
 is_not_valid_signup_key_word, is_not_valid_user_login_details, is_not_valid_user_details
 from flask import Blueprint, jsonify, abort, request, json
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token,
     get_jwt_identity)
-from api.views.utilities import appblueprint
+from api.views import appblueprint
 from api.models.models import User
 
 @appblueprint.route('/auth/signup', methods=['POST'])

@@ -2,8 +2,7 @@ from tests.test_base import BaseTestCase
 import unittest
 import json
 from tests import app
-from api.views.utilities import db_conn
-import os
+from api.views import db_conn
 
 class EndTests(BaseTestCase):
 

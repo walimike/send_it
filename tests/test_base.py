@@ -1,8 +1,7 @@
 import unittest
 import json
 from api import app
-from api.views.utilities import db_conn
-import os
+from api.views import db_conn
 from api.models.models import User
 
 

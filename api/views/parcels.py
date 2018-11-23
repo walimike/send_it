@@ -1,5 +1,5 @@
 from flask import jsonify, abort, request, json
-from api.views.utilities import appblueprint, is_not_valid_order_key,\
+from api.views import appblueprint, is_not_valid_order_key,\
 is_not_valid_order, db_conn
 from api.models.models import Parcel
 from flask_jwt_extended import jwt_required,get_jwt_identity
