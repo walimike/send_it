@@ -13,12 +13,23 @@ SendIT provides courier quotes based on weight categories.
 5. Users can see the details of a delivery order.
 6. Admin can change the status and present location of a parcel delivery order.
 ### Quick Setup
-a) Open your terminal.<br>
-b) Type in the command git clone and paste in this link https://github.com/walimike/send_it.git. <br>
-c) You can now checkout to the develop-v2 branch for version 2 of our API. <br>
-d) Create a virtual environment and then `pip install -r requirements.txt` <br>
-e) Now run the app using `python run.py` <br>
-
+```
+1. Open your terminal.
+2. Type in the command git clone and paste in this link https://github.com/walimike/send_it.git. 
+3. You can now checkout to the develop-v2 branch for version 2 of our API.
+4. Create a virtualenv using python3, call the virtualenv venv.
+5. Within your virtualenv, pip install -r requirements.txt
+6. Now open a different terminal and open up postgres database on your local machine usind sudo su postgres
+7. At this point you shall be prompted to enter your password(local host/computer password)
+8. Now psql into postgres or anyother databse name available on your machine.
+9. We now create a database called sendit_db and another called test_db using CREATE DATABASE sendit_db; and CREATE DATABASE test_db;
+10. Now type \q in terminal to quit from postgres and then type psql sendit_db to enter our db
+11. At this point, you'll see this: sendit_db=# in your terminal.
+12. We shall now alter the password using \password to change the postgres password to 12345
+14. Follow instructions 10 to 12 for the test_db
+15. Now go back where we downloaded this project and type . venv/bin/activate to activate our virtualenv.
+16. You can now run the app using python3 run.py
+```
 ### API Features:
 
 |URL Endpoint	|HTTP Method	|Description|
@@ -34,6 +45,7 @@ e) Now run the app using `python run.py` <br>
 |`/parcels/<parcelId>/destination`|`PUT `|Change the location of a specific parcel delivery order(CURRENT USER)|
 |`/parcels/<parcelId>/status`|`PUT `|Change the status of a specific parcel delivery order(ADMIN)|
 |`/parcels/<parcelId>/presentLocation`|`PUT `|Change the present location of a specific parcel delivery order|
+
 
 # Authors
 Michael Robert Wali
