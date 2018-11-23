@@ -17,6 +17,8 @@ class BaseTestCase(unittest.TestCase):
             db_conn.add_user(admin_user)
             self.test_user1 = {"name":"wali","email":"walimike@ymail.com",\
             "password":"wrej@jafcd"}
+            self.test_user2 = {"name":"jerry","email":"jerry@ymail.com",\
+            "password":"wr3ck1Ngb@11"}
             self.test_order ={"source":"jinja","destination":"kampala",\
             "parcel_name":"car","price":1234}
 

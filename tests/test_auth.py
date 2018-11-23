@@ -43,17 +43,29 @@ class TestApi(unittest.TestCase):
 
     def test_invalid_sign_up_name_key(self):
         invalid_user = {"Naame":"wali","email":"walimike@ymail.com",\
-        "password":"1234"}
+        "password":"1234@treg"}
         response = self.client.post('/v2/api/auth/signup', json = invalid_user)
         self.assertEqual(response.status_code, 400)
         self.assertIn('name key word is not in the right format', str(response.data))
 
+    def test_invalid_sign_up_name(self):
+        invalid_user = {"name":"wag21354","email":"walimike@ymail.com","password":"1234@treg"}
+        response = self.client.post('/v2/api/auth/signup', json = invalid_user)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('an error occured in name input', str(response.data))
+
     def test_invalid_sign_up_email_key(self):
         invalid_user = {"name":"wali","Evmail":"walimike@ymail.com",\
-        "password":"1234"}
+        "password":"1@2asf3#4"}
         response = self.client.post('/v2/api/auth/signup', json = invalid_user)
         self.assertEqual(response.status_code, 400)
         self.assertIn('email key word is not in the right format', str(response.data))
+
+    def test_invalid_email(self):
+        invalid_user = {"name":"wali","email":"walimike","password":"1@2#3fsg4"}
+        response = self.client.post('/v2/api/auth/signup', json = invalid_user)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('email not in the right format', str(response.data))
 
     def test_invalid_sign_up_password_key(self):
         invalid_user = {"name":"wali","email":"walimike@ymail.com",\
@@ -81,6 +93,13 @@ class TestApi(unittest.TestCase):
         response = self.client.post('/v2/api/auth/login', json = login_credentials)
         self.assertEqual(response.status_code, 200)
 
+    def test_cannot_login_invalid_details(self):
+        self.client.post('/v2/api/auth/signup', json = self.test_user1)
+        login_credentials = {"name":"fas3545","password":"12safgerg34"}
+        response = self.client.post('/v2/api/auth/login', json = login_credentials)
+        self.assertEqual(response.status_code, 400)
+
+
     def test_invalid_json(self):
         self.client.post('/v2/api/auth/signup', json = self.test_user1)
         response = self.client.post('/v2/api/auth/login', json = {})
@@ -91,7 +110,6 @@ class TestApi(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         response = self.client.post('/v2/api/auth/login', json = {"name":"wali","Pazvvssword":"serteseytsgsd"})
         self.assertEqual(response.status_code, 400)
-
 
     def test_can_fetch_all_users_not_prote(self):
         response = self.client.get('/v2/api/users')

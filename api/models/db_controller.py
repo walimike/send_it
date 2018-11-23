@@ -61,14 +61,11 @@ class Dbcontroller:
 
     def fetch_all_entries(self,table_name):
         """ Fetches all entries from the database"""
-        try:
-            query = ("SELECT * FROM %s;") %(table_name)
-            self.cursor.execute(query)
-            rows = self.cursor.fetchall()
-            return rows
-        except (Exception, psycopg2.DatabaseError)as Error:
-            raise Error
-
+        query = ("SELECT * FROM %s;") %(table_name)
+        self.cursor.execute(query)
+        rows = self.cursor.fetchall()
+        return rows
+        
     def add_user(self,new_user):
         self.cursor.execute("INSERT INTO users(username,email,password,role) VALUES\
         (%s, %s, %s, %s);",(new_user.name,new_user.email,new_user.password,new_user.role))

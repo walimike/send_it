@@ -42,6 +42,15 @@ class EndTests(BaseTestCase):
         headers={'Authorization': self.get_token()})
         self.assertEqual(res.status_code, 200)
 
+    def test_cannot_fetch_specific_order_out_of_range(self):
+        self.make_valid_order()
+        res = self.client.get( '/v2/api/parcels/1', content_type='application/json',\
+        headers={'Authorization': self.get_token()})
+        self.assertEqual(res.status_code, 200)
+        res = self.client.get( '/v2/api/parcels/2', content_type='application/json',\
+        headers={'Authorization': self.get_token()})
+        self.assertEqual(res.status_code, 404)
+
     def test_cannot_fetch_all_orders_with_unauthorized_access(self):
         self.make_valid_order()
         res = self.client.get( '/v2/api/parcels', content_type='application/json',\
@@ -76,3 +85,43 @@ class EndTests(BaseTestCase):
         response = self.make_invalid_order(order)
         self.assertEqual(response.status_code, 400)
         self.assertIn("price key word is not in the right format",str(response.data))
+
+    def test_invalid_parcel_order(self):
+        order ={"source":"jinja","destination":"kampala","parcel_name":"car345","price":1234}
+        response = self.make_invalid_order(order)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("an error occured in Parcel_name input",str(response.data))
+
+    def test_invalid_source_order(self):
+        order ={"source":2345,"destination":"kampala","parcel_name":"car","price":1234}
+        response = self.make_invalid_order(order)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("an error occured in source input",str(response.data))
+
+    def test_invalid_destination_order(self):
+        order ={"source":"jinja","destination":4328563,"parcel_name":"car","price":1234}
+        response = self.make_invalid_order(order)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("an error occured in destination input",str(response.data))
+
+    def test_invalid_price_order(self):
+        order ={"source":"jinja","destination":"kampala","parcel_name":"car","price":"rwf42"}
+        response = self.make_invalid_order(order)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("an error occured in price input",str(response.data))
+
+    def test_can_fetch_all_parcels(self):
+        response = self.client.get('/v2/api/test/parcels')
+        self.assertEqual(response.status_code,200)
+
+    def test_can_update_parcels(self):
+        self.make_valid_order()
+        response = self.client.put('/v2/api/test/1/status', json={'status':'cancel'})
+        self.assertEqual(response.status_code,200)
+        self.assertIn("successfully updated",str(response.data))
+
+    def test_can_update_location(self):
+        self.make_valid_order()
+        response = self.client.put('/v2/api/test/1/location', json={'location':'lira'})
+        self.assertEqual(response.status_code,200)
+        self.assertIn("successfully updated",str(response.data))
