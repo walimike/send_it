@@ -53,16 +53,26 @@ class EndTests(BaseTestCase):
         headers={'Authorization': self.get_token()}, data=json.dumps({}))
         self.assertEqual(response.status_code, 400)
 
-""" admin tests/wip
-    def test_can_fetch_all_orders(self):
-        response = self.client.get( '/v2/api/parcels', content_type='application/json',\
-        headers={'Authorization': self.get_admin_token()}, data=json.dumps(self.test_order))
-        return response
+    def test_invalid_parcel_name_order(self):
+        order ={"source":"jinja","destination":"kampala","parcelname":"car","price":1234}
+        response = self.make_invalid_order(order)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("parcel_name key word is not in the right format",str(response.data))
 
-    def test_can_change_order_location(self):
-        self.make_valid_order()
-        new_destination = {"present_location":"mpererwe"}
-        response = self.client.put( '/v2/api/parcels/1/presentlocation', content_type='application/json',\
-        headers={'Authorization': self.get_admin_token()}, data=json.dumps(new_destination))
-        self.assertEqual(response.status_code,200)
-"""
+    def test_invalid_source_name_order(self):
+        order ={"sourcce":"jinja","destination":"kampala","parcel_name":"car","price":1234}
+        response = self.make_invalid_order(order)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("source key word is not in the right format",str(response.data))
+
+    def test_invalid_destination_name_order(self):
+        order ={"source":"jinja","ddestination":"kampala","parcel_name":"car","price":1234}
+        response = self.make_invalid_order(order)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("destination key word is not in the right format",str(response.data))
+
+    def test_invalid_price_name_order(self):
+        order ={"source":"jinja","destination":"kampala","parcel_name":"car","prrrice":1234}
+        response = self.make_invalid_order(order)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("price key word is not in the right format",str(response.data))

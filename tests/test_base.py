@@ -1,6 +1,6 @@
 import unittest
 import json
-from tests import app
+from api import app
 from api.views.utilities import db_conn
 import os
 from api.models.models import User
@@ -27,11 +27,6 @@ class BaseTestCase(unittest.TestCase):
         response = self.client.post('/v2/api/auth/signup',\
         data=json.dumps(self.test_user1),content_type='application/json' )
 
-    def admin_login(self):
-        admin_user = {"name":"admin","password":"@H@nN@H92"}
-        return self.client.post('/v2/api/auth/login',\
-         data=json.dumps(self.test_user1),content_type='application/json')
-
     def login_user(self):
         return self.client.post('/v2/api/auth/login',\
          data=json.dumps(self.test_user1),content_type='application/json')
@@ -50,6 +45,11 @@ class BaseTestCase(unittest.TestCase):
     def make_valid_order(self):
         response = self.client.post( '/v2/api/parcels',content_type='application/json',\
         headers={'Authorization': self.get_token()}, data=json.dumps(self.test_order))
+        return response
+
+    def make_invalid_order(self,order_dict):
+        response = self.client.post( '/v2/api/parcels',content_type='application/json',\
+        headers={'Authorization': self.get_token()}, data=json.dumps(order_dict))
         return response
 
     def fetch_all_orders(self):
