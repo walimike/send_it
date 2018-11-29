@@ -6,7 +6,7 @@
     <meta name="author" content="Michael Robert Wali">
     <title>send it</title>
     <link href="css/style.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="scripts/signup.js"></script>
+    <script type="text/javascript" src="scripts/main.js"></script>
   </head>
   <body>
     <section class="layout">
@@ -19,15 +19,13 @@
           <h2><a href="signup.html">Sign Up</a></h2>
         </div>
         <div class="forminput">
-          <form method="POST" id="signupForm"> 
-            <input type="text" class="form-input" id="username" placeholder="User name" required="required">
-            <input type="email" class="form-input" id="email" placeholder="Email" required="required">
-		  		  <input type="password" class="form-input" id="password1" placeholder="Password" required="required">
-            <input type="password" class="form-input" id="password2" placeholder="Confirm Password" required="required">
+          <form>
+            <input type="name" class="form-input" placeholder="User name" required="required">
+		  		  <input type="password" class="form-input" placeholder="Password" required="required">
             <p>Admin<input type="radio" class="radio" name="wali" value="admin" id="admin"></p>
 						<p>User<input type="radio" class="radio" name="wali" value="user" id="user"></p>
-            <button type="submit" class="signup-button" onclick="signUp();">SignUp</button>
           </form>
+          <button type="submit" class="button" onclick="SelectUser()" >Login</button>
         </div>
       </section>
     </section>
