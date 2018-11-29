@@ -30,22 +30,22 @@ SendIT provides courier quotes based on weight categories.
 15. Now go back where we downloaded this project and type . venv/bin/activate to activate our virtualenv.
 16. You can now run the app using python3 run.py
 ```
-### API Features:
+### API Features
 
-|URL Endpoint	|HTTP Method	|Description|
-|-------------|-------------|-----------|
-|`/parcels`	|`GET`|	Fetch all parcel delivery orders|
-|`/parcels/<parcelId>`|`GET`|	Fetch a specific parcel delivery order|
-|`/users/<userId>/parcels`|	`GET`|Fetch all parcel delivery orders by a specific user|
-|`/parcels<parcelId>/cancel`|`PUT`|Cancel the specific parcel delivery order|
-|`/parcels`|	`POST`|	Create a parcel delivery order|
-|`/users`|	`GET`|	Fetch all current users|
-|`/auth/signup`|`POST`|Register a user|
-|`/auth/login`|`POST `|Login a user|
-|`/parcels/<parcelId>/destination`|`PUT `|Change the location of a specific parcel delivery order(CURRENT USER)|
-|`/parcels/<parcelId>/status`|`PUT `|Change the status of a specific parcel delivery order(ADMIN)|
-|`/parcels/<parcelId>/presentLocation`|`PUT `|Change the present location of a specific parcel delivery order|
+|URL Endpoint                        	|HTTP Method  |    Description                                                      |
+|-------------------------------------|-------------|---------------------------------------------------------------------|
+|`/parcels`	                          | `GET`       |	        Fetch all parcel delivery orders                            |
+|`/parcels/<parcelId>`                |   `GET`     |    Fetch a specific parcel delivery order                           |
+|`/users/<userId>/parcels`            |   	`GET`   |Fetch all parcel delivery orders by a specific user                  |
+|`/parcels<parcelId>/cancel`          |   `PUT`     |          Cancel the specific parcel delivery order                  |
+|`/parcels`                           |	`POST`      |                   	Create a parcel delivery order                  |
+|`/users`                             |	`GET`       |	Fetch all current users                                             |
+|`/auth/signup`                       |`POST`       |Register a user                                                      |
+|`/auth/login`                        |`POST `      |Login a user                                                         |
+|`/parcels/<parcelId>/destination`    |`PUT `       |Change the location of a specific parcel delivery order(CURRENT USER)|
+|`/parcels/<parcelId>/status`         |`PUT `       |Change the status of a specific parcel delivery order(ADMIN)         |
+|`/parcels/<parcelId>/presentLocation`|`PUT `       |Change the present location of a specific parcel delivery order      |
 
 
-# Authors
+## Authors
 Michael Robert Wali
