@@ -89,25 +89,13 @@ class Dbcontroller:
     def fetch_all_orders(self):
         return self.fetch_all_entries('parcels')
 
-    def fetch_parcel(self,id):
+    def fetch_parcel(self,column,did):
         """Returns a user in form of a dict or None if user not found"""
-        query = "SELECT * FROM parcels WHERE parcelid=%s"
-        self.cursor.execute(query, (id,))
-        parcel = self.cursor.fetchone()
+        query = """SELECT * FROM parcels WHERE {0}={1}""".format(column,did,)
+        self.cursor.execute(query,)
+        parcel = self.cursor.fetchall()
         return parcel
 
-    def fetch_parcel_by_specific(self,id):
-        """Returns a user in form of a dict or None if user not found"""
-        query = "SELECT * FROM parcels WHERE usrid=%s"
-        self.cursor.execute(query, (id,))
-        parcels = self.cursor.fetchall()
-        return parcels
-
     def update_parcel(self,column,value, parcel_id):
-            if column == 'parcel_destination':
-                query = "UPDATE parcels SET parcel_destination = '{}' WHERE parcelid  = '{}'".format(value, parcel_id)
-            elif column == 'parcel_status':
-                query = "UPDATE parcels SET parcel_status = '{}' WHERE parcelid  = '{}'".format(value, parcel_id)
-            elif column == 'present_location':
-                query = "UPDATE parcels SET present_location = '{}' WHERE parcelid  = '{}'".format(value, parcel_id)
+            query = """UPDATE parcels SET {0} = '{1}' WHERE parcelid  = {2}""".format(column,value, parcel_id)
             self.cursor.execute(query,)

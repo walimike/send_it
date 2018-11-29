@@ -21,7 +21,7 @@ class EndTests(BaseTestCase):
     def test_can_not_change_order_destination_not_found(self):
         self.make_valid_order()
         new_destination = {"destination":"mpigi"}
-        response = self.client.put( '/v2/api/parcels/10/destination', content_type='application/json',\
+        response = self.client.put( '/v2/api/parcels/100/destination', content_type='application/json',\
         headers={'Authorization': self.get_token()}, data=json.dumps(new_destination))
         self.assertEqual(response.status_code, 404)
 

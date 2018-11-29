@@ -37,7 +37,7 @@ def fetch_all_orders():
 @appblueprint.route('/parcels/<int:parcel_id>', methods=['GET'])
 @jwt_required
 def fetch_specific_order(parcel_id):
-    parcel = db_conn.fetch_parcel(parcel_id)
+    parcel = db_conn.fetch_parcel('parcelid',parcel_id)
     if not parcel:
         return jsonify({"message":"parcel not found"}),404
     return jsonify({"Parcel":parcel}),200
@@ -46,7 +46,7 @@ def fetch_specific_order(parcel_id):
 @jwt_required
 def fetch_parcel_by_specific_user():
     user_id = get_jwt_identity()['user_id']
-    return jsonify({"Parcel":db_conn.fetch_parcel_by_specific(user_id)})
+    return jsonify({"Parcel":db_conn.fetch_parcel('usrid',user_id)})
 
 @appblueprint.route('/parcels/<int:parcel_id>/cancel', methods=['PUT'])
 @jwt_required
@@ -58,7 +58,7 @@ def change_order_status(parcel_id):
 
     if new_status != 'cancel':
         return jsonify({"message":"status can only be canceled"}),400
-    if not db_conn.fetch_parcel(parcel_id):
+    if not db_conn.fetch_parcel('parcelid',parcel_id):
         return jsonify({"message":"order does not exist"}),404
     db_conn.update_parcel('parcel_status',new_status,parcel_id)
     return jsonify({"message":"successfully updated"}),200
@@ -68,11 +68,11 @@ def change_order_status(parcel_id):
 def change_order_destination(parcel_id):
     destination = request.json['destination']
     user_id = get_jwt_identity()['user_id']
-    parcel = db_conn.fetch_parcel(parcel_id)
+    parcel = db_conn.fetch_parcel('parcelid',parcel_id)
 
     if not parcel:
         return jsonify({"message":"parcel of this ID not found"}),404
-    if parcel['usrid'] != user_id:
+    if parcel[0]['usrid'] != user_id:
         return jsonify({"message":"you do not have authorization over this parcel"}),401
     db_conn.update_parcel('parcel_destination',destination,parcel_id)
     return jsonify({"message":"destination successfully changed"}),200
