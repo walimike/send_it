@@ -24,7 +24,9 @@ function signUp() {
     .then(res => res.json())
     .then(response => {
         alert(response.message);
+        if (response.message=="you have successfully signed up as" + username){
         window.location.replace('index.html');
+        }
     })
 }
     
