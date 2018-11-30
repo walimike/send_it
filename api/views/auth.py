@@ -29,7 +29,7 @@ def add_user():
         return jsonify({"message":"user already exists with this credentials"}),400
 
     user_db.add_user(new_user)
-    return jsonify({"message":"you have successfully signed up"}),201
+    return jsonify({"message":"you have successfully signed up as" + new_user.name}),201
 
 
 @appblueprint.route('/auth/login', methods=['POST'])
@@ -56,4 +56,4 @@ def login():
     user = {"user_id":current_user["usrid"],"role":current_user["role"]}
 
     access_token = create_access_token(identity=user)
-    return jsonify({'access_token':access_token}), 200
+    return jsonify({'access_token':access_token,'message':'successfully logged in','role':current_user["role"]}), 200
