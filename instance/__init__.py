@@ -1,9 +1,8 @@
 from flasgger import Swagger
 from instance.config import app_config
 from flask import Flask
-from flask_jwt_extended import (
-    JWTManager, jwt_required, create_access_token,
-    get_jwt_identity)
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
+from flask_cors import CORS    
 
 
 def create_app(config_name):
@@ -13,4 +12,5 @@ def create_app(config_name):
     app.config['JWT_SECRET_KEY'] = 'super-secret'
     jwt = JWTManager(app)
     Swagger(app)
+    CORS(app)
     return app
