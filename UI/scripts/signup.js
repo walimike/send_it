@@ -8,7 +8,7 @@ function signUp() {
         alert('Passwords do not match')
     }
 
-    const url = 'http://127.0.0.1:5000//v2/api/auth/signup';
+    const url = 'http://127.0.0.1:5000/v2/api/auth/signup';
 
     let data = {
         name: username,

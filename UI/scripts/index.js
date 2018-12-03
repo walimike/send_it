@@ -2,7 +2,7 @@ function logIn() {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
     
-    const url = 'http://127.0.0.1:5000//v2/api/auth/login';
+    const url = 'http://127.0.0.1:5000/v2/api/auth/login';
 
     let data = {
         name: username,

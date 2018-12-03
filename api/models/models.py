@@ -2,10 +2,10 @@ class Parcel:
     """
     Creates a parcel model.
     """
-    def __init__(self,name,price,id,source,destination):
+    def __init__(self,name,price,usrid,source,destination):
         self.name=name
         self.price=price
-        self.id=id
+        self.id=usrid
         self.source = source
         self.location = 'Unknown'
         self.destination = destination
