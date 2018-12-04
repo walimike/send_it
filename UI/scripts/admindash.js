@@ -60,14 +60,10 @@ function addRow(tableID,parcelName,parcelid) {
         .then(res => res.json())
         .then(response => {
             data = response.Parcel;
-            let parcelname = document.getElementById('parcelname');
-            parcelname.innerText= data.parcel_name;
-            let parcelname = document.getElementById('parcelname');
-            parcelname.innerText= data.parcel_name;
-            let parcelname = document.getElementById('parcelname');
-            parcelname.innerText= data.parcel_name;
-            let parcelname = document.getElementById('parcelname');
-            parcelname.innerText= data.parcel_name;
+            document.getElementById('parcelname').innerText= data.parcel_name;
+            document.getElementById('price').innerText= data.price;
+            document.getElementById('status').innerText= data.parcel_name;
+            
          })
     });
 
