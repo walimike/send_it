@@ -1,13 +1,3 @@
-/*{
-    "parcel_destination": "jdfdk",
-    "parcel_name": "hadsagds",
-    "parcel_source": "jkgfhdfh",
-    "parcel_status": "In Transit",
-    "parcelid": 1,
-    "present_location": "Unknown",
-    "price": 123456,
-    "usrid": 3
-},*/
 
 token = localStorage.getItem("accesstoken")
 const orderUrl = 'http://127.0.0.1:5000/v2/api/parcels';
@@ -46,6 +36,18 @@ function addRow(tableID,parcelName,parcelid) {
     
     let newParcel = document.createTextNode(parcelName);
     let newid = document.createTextNode(parcelid);
+    var button2 = document.createElement("button");
+    button2.innerHTML = "Edit status";
+    button2.addEventListener('click',()=>{
+        var forminput = '<input type="text" id="editstatus" required="required">'
+        document.getElementById('presentlocation').innerHTML = forminput
+    })
+    var button3 = document.createElement("button");
+    button3.innerHTML = "Edit location";
+    button3.addEventListener('click',()=>{
+        var forminput2 = '<input type="text" id="editlocation" required="required">'
+        document.getElementById('presentlocation').innerHTML = forminput2
+    })
     var button = document.createElement("button");
     button.innerHTML = "Details";
     button.addEventListener('click',()=>{
@@ -59,11 +61,15 @@ function addRow(tableID,parcelName,parcelid) {
              })
         .then(res => res.json())
         .then(response => {
-            data = response.Parcel;
+            data = response.Parcel[0];
             document.getElementById('parcelname').innerText= data.parcel_name;
             document.getElementById('price').innerText= data.price;
-            document.getElementById('status').innerText= data.parcel_name;
-            
+            document.getElementById('source').innerText= data.parcel_source;
+            document.getElementById('presentlocation').innerText= data.present_location;
+            document.getElementById('destination').innerText= data.parcel_destination;
+            document.getElementById('status').innerText= data.parcel_status;
+            document.getElementById('statusbutton').appendChild(button2);
+            document.getElementById('locationbutton').appendChild(button3);
          })
     });
 
@@ -71,3 +77,12 @@ function addRow(tableID,parcelName,parcelid) {
     parcelID.appendChild(newid);
     details.appendChild(button);
   }
+
+function updateOrder(){
+    let newstatus = document.getElementById('editstatus').value;
+    let newlocation = document.getElementById('editlocation').value;
+    if(!!newlocation){
+        alert('what the hell');
+        }
+    alert(newlocation);
+}  
