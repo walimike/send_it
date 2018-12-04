@@ -6,9 +6,9 @@
     <meta name="author" content="Michael Robert Wali">
     <title>sendit</title>
     <link href="css/style.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="scripts/main.js"></script>
+    <script src="scripts/admindash.js"></script>
   </head>
-  <body class="innerbody">
+  <body class="innerbody" onload="getAllOrders();">
     <header>
       <nav>
         <div class="nav-link">
@@ -24,7 +24,7 @@
         <table>
           <tr>
             <th>Parcel Name:</th>
-            <td>Mobile phone</td>
+            <td id="parcelname"></td>
           </tr>
           <tr>
             <th>Client's Name:</th>
@@ -32,29 +32,19 @@
           </tr>
           <tr>
             <th>Status</th>
-            <td>
-              <select class="details">
-                <option value="status">Delivered</option>
-                <option value="status">In transit</option>
-              </select>
-            </td>
+            <td id="status"></td>
           </tr>
           <tr>
-            <th>From</th>
-            <td>Gulu</td>
+            <th>Source</th>
+            <td id="source"></td>
           </tr>
           <tr>
             <th>Present Location</th>
-            <td>
-              <select class="details">
-                <option value="location">Mbarara</option>
-                <option value="location">Kamapala</option>
-              </select>
-            </td>
+            <td id="presentlocation"></td>
           </tr>
           <tr>
             <th>Destination</th>
-            <td>Mbarara</td>
+            <td id="destination"></td>
           </tr>
         </table>
         <button type="submit" class="button1">Save</button>
@@ -63,31 +53,11 @@
     <div class="all-parcels">
       <h1>All Parcels</h1>
       <div class="table">
-        <table>
+        <table id="admintable">
           <tr>
             <th>Parcel Name</th>
             <th>Client's Name</th>
             <th>View Details</th>
-          </tr>
-          <tr>
-            <td>Mobile phone</td>
-            <td>Ivan Ssali</td>
-            <td><input class="parcel-details" type="button" value="Details"></td>
-          </tr>
-          <tr>
-            <td>Fridge</td>
-            <td>Kato David</td>
-            <td><input class="parcel-details" type="button" value="Details"></td>
-          </tr>
-          <tr>
-            <td>Nissan Car</td>
-            <td>John Byarugaba</td>
-            <td><input class="parcel-details" type="button" value="Details"></td>
-          </tr>
-          <tr>
-            <td>Shoes</td>
-            <td>Jesse Byomuhangi</td>
-            <td><input class="parcel-details" type="button" value="Details"></td>
           </tr>
         </table>
       </div>
