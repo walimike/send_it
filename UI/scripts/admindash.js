@@ -34,7 +34,7 @@ function addRow(tableID,parcelName,parcelid) {
     var button2 = document.createElement("button");
     button2.innerHTML = "Edit status";
     button2.addEventListener('click',()=>{
-        document.getElementById('status').innerHTML = `<input type="text" onblur=updatStatus(event,${parcelid}) id="editstatus" required>`
+        document.getElementById('status').innerHTML = `<input type="text" onblur=updateStatus(event,${parcelid}) id="editstatus" required>`
         button2.innerHTML = "Save";
         
     })
@@ -42,7 +42,7 @@ function addRow(tableID,parcelName,parcelid) {
     button3.innerHTML = "Edit location";
     button3.addEventListener('click',()=>{ 
         document.getElementById('presentlocation').innerHTML = `<input type="text" onblur=updateLocation(event,${parcelid}) id="editlocation" required>`
-        button2.innerHTML = "Save";
+        button3.innerHTML = "Save";
     })
     var button = document.createElement("button");
     button.innerHTML = "Details";
@@ -96,10 +96,10 @@ function addRow(tableID,parcelName,parcelid) {
   }
 
   function updateStatus(e,parcelid){
-    statusurl = `http://127.0.0.1:5000/v2/api/parcels/${parcelid}/presentlocation`
+    statusurl = `http://127.0.0.1:5000/v2/api/parcels/${parcelid}/cancel`
     newstatus=e.target.value;
     let data = {
-        present_location:newstatus
+        status:newstatus
     }
     fetch(statusurl, {
         method: 'PUT',
