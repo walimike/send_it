@@ -29,6 +29,7 @@ class Dbcontroller:
         self.conn.autocommit = True
         self.cursor = self.conn.cursor(cursor_factory=walimike.RealDictCursor)
         print("Successfully connected to"+database_url)
+        self.drop_tables()
         self.create_tables()
         admin_user = User('adminuser','admin@gmail.com','@H@nN@H92','admin')
         self.add_user(admin_user)

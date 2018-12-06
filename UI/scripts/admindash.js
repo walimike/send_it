@@ -27,26 +27,22 @@ function getAllOrders() {
 
 
 function addRow(tableID,parcelName,parcelid) {
-    let tableRef = document.getElementById(tableID);
-    let newRow = tableRef.insertRow(-1);
+    let newRow = document.getElementById(tableID).insertRow(-1);
 
-    let parcelname = newRow.insertCell(0);
-    let parcelID = newRow.insertCell(1);
-    let details = newRow.insertCell(2);
-    
     let newParcel = document.createTextNode(parcelName);
     let newid = document.createTextNode(parcelid);
     var button2 = document.createElement("button");
     button2.innerHTML = "Edit status";
     button2.addEventListener('click',()=>{
-        var forminput = '<input type="text" id="editstatus" required="required">'
-        document.getElementById('presentlocation').innerHTML = forminput
+        document.getElementById('status').innerHTML = `<input type="text" onblur=updatStatus(event,${parcelid}) id="editstatus" required>`
+        button2.innerHTML = "Save";
+        
     })
     var button3 = document.createElement("button");
     button3.innerHTML = "Edit location";
-    button3.addEventListener('click',()=>{
-        var forminput2 = '<input type="text" id="editlocation" required="required">'
-        document.getElementById('presentlocation').innerHTML = forminput2
+    button3.addEventListener('click',()=>{ 
+        document.getElementById('presentlocation').innerHTML = `<input type="text" onblur=updateLocation(event,${parcelid}) id="editlocation" required>`
+        button2.innerHTML = "Save";
     })
     var button = document.createElement("button");
     button.innerHTML = "Details";
@@ -73,16 +69,48 @@ function addRow(tableID,parcelName,parcelid) {
          })
     });
 
-    parcelname.appendChild(newParcel);
-    parcelID.appendChild(newid);
-    details.appendChild(button);
+    newRow.insertCell(0).appendChild(newParcel);
+    newRow.insertCell(1).appendChild(newid);
+    newRow.insertCell(2).appendChild(button);
   }
 
-function updateOrder(){
-    let newstatus = document.getElementById('editstatus').value;
-    let newlocation = document.getElementById('editlocation').value;
-    if(!!newlocation){
-        alert('what the hell');
-        }
-    alert(newlocation);
-}  
+  function updateLocation(e,parcelid){
+    locationurl = `http://127.0.0.1:5000/v2/api/parcels/${parcelid}/presentlocation`
+    newlocation=e.target.value;
+    alert(newlocation)
+    let data = {
+        present_location:newlocation
+    }
+    fetch(locationurl, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+                 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`
+             },
+        body: JSON.stringify(data)     
+         })
+    .then(res => res.json())
+    .then(response => {
+        alert(response.message)
+    })
+  }
+
+  function updateStatus(e,parcelid){
+    statusurl = `http://127.0.0.1:5000/v2/api/parcels/${parcelid}/presentlocation`
+    newstatus=e.target.value;
+    let data = {
+        present_location:newstatus
+    }
+    fetch(statusurl, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+                 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`
+             },
+        body: JSON.stringify(data)     
+         })
+    .then(res => res.json())
+    .then(response => {
+        alert(response.message)
+    })
+  }
