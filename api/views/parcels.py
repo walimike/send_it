@@ -32,7 +32,14 @@ def fetch_all_orders():
     role = get_jwt_identity()['role']
     if role != 'admin':
         return jsonify({"message":"you are not authorized to access this endpoint"}),401
-    return jsonify({"Parcels":db_conn.fetch_all_orders()}),200
+    orders = db_conn.fetch_all_orders()
+    newlist =[]
+    for order in orders:
+        user_id = order["usrid"]
+        username = db_conn.fetch_specific_user(user_id)["username"]
+        order["username"] = username
+        newlist.append(order)  
+    return jsonify({"Parcels":newlist}),200
 
 @appblueprint.route('/parcels/<int:parcel_id>', methods=['GET'])
 @jwt_required
@@ -46,7 +53,14 @@ def fetch_specific_order(parcel_id):
 @jwt_required
 def fetch_parcel_by_specific_user():
     user_id = get_jwt_identity()['user_id']
-    return jsonify({"Parcel":db_conn.fetch_parcel('usrid',user_id)})
+    orders = db_conn.fetch_parcel('usrid',user_id)
+    newlist,status_list =[],[]
+    for order in orders:
+        user_id = order["usrid"]
+        username = db_conn.fetch_specific_user(user_id)["username"]
+        order["username"] = username
+        newlist.append(order)  
+    return jsonify({"Parcels":newlist}),200
 
 @appblueprint.route('/parcels/<int:parcel_id>/cancel', methods=['PUT'])
 @jwt_required
@@ -57,10 +71,12 @@ def change_order_status(parcel_id):
     new_status = request.json.get('status')
 
     if new_status != 'cancel':
-        return jsonify({"message":"status can only be canceled"}),400
+        if new_status != 'deliver':
+            return jsonify({"message":"status can only be canceled or delivered"}),400
     if not db_conn.fetch_parcel('parcelid',parcel_id):
         return jsonify({"message":"order does not exist"}),404
-    db_conn.update_parcel('parcel_status',new_status,parcel_id)
+    status_update = new_status + "ed"    
+    db_conn.update_parcel('parcel_status',status_update,parcel_id)
     return jsonify({"message":"successfully updated"}),200
 
 @appblueprint.route('/parcels/<int:parcel_id>/destination', methods=['PUT'])
@@ -90,3 +106,4 @@ def change_order_present_location(parcel_id):
 @appblueprint.route('/users', methods=['GET'])
 def fetch_all_users():
     return jsonify({"users":db_conn.fetch_all_users()})
+

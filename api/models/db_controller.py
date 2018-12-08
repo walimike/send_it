@@ -29,10 +29,14 @@ class Dbcontroller:
         self.conn.autocommit = True
         self.cursor = self.conn.cursor(cursor_factory=walimike.RealDictCursor)
         print("Successfully connected to"+database_url)
-        self.drop_tables()
         self.create_tables()
-        admin_user = User('adminuser','admin@gmail.com','@H@nN@H92','admin')
+        admin_user = User('adminuser','admin@gmail.com','1234567890','admin')
         self.add_user(admin_user)
+        user1 = User('wali','walimike@gmail.com','1234567890','user')
+        self.add_user(user1)
+        user2 = User('abba','abba@gmail.com','1234567890','user')
+        self.add_user(user2)
+
 
     def create_tables(self):
         """
@@ -95,6 +99,13 @@ class Dbcontroller:
         query = """SELECT * FROM parcels WHERE {0}={1}""".format(column,did,)
         self.cursor.execute(query,)
         parcel = self.cursor.fetchall()
+        return parcel
+
+    def fetch_specific_user(self,did):
+        """Returns a user in form of a dict or None if user not found"""
+        query = """SELECT * FROM users WHERE usrid={0}""".format(did,)
+        self.cursor.execute(query,)
+        parcel = self.cursor.fetchone()
         return parcel
 
     def update_parcel(self,column,value, parcel_id):

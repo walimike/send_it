@@ -41,19 +41,46 @@ function addRow(tableID,parcelName,source,destination,price,parcelID) {
     let parcelsource = newRow.insertCell(1);
     let parceldestination = newRow.insertCell(2);
     let parcelprice = newRow.insertCell(3);
-    let parcelid = newRow.insertCell(4);
+    let button = newRow.insertCell(4);
   
     let newParcel = document.createTextNode(parcelName);
     let parcelSource = document.createTextNode(source);
     let parcelDestination = document.createTextNode(destination);
     let parcelPrice = document.createTextNode(price);
-    let parcel_id = document.createTextNode(parcelID);
+    var newbutton = document.createElement("button");
+    newbutton.innerHTML = "Details";
 
+    newbutton.addEventListener('click',()=>{
+        fetch(`http://127.0.0.1:5000/v2/api/parcels/${parcelID}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(res => res.json())
+        .then(response => {
+            data = response.Parcel[0] 
+            document.getElementById('userparcelname').innerText= data.parcel_name;
+            document.getElementById('userprice').innerText= data.price;
+            document.getElementById('usersource').innerText= data.parcel_source;
+            document.getElementById('userlocation').innerText= data.present_location;
+            document.getElementById('userdestination').innerText= data.parcel_destination;   
+            var button4 = document.createElement("button");
+            button4.innerHTML = "Edit";
+            button4.addEventListener('click',()=>{ 
+                document.getElementById('userdestination').innerHTML = `<input type="text" onblur=updateDestination(event,${data.parcelid}) id="userdestination" required>`
+                button4.innerHTML = "Save";
+            })
+            document.getElementById('userbutton').appendChild(button4);
+         })
+        
+    });
     parcelname.appendChild(newParcel);
     parcelsource.appendChild(parcelSource);
     parceldestination.appendChild(parcelDestination);
     parcelprice.appendChild(parcelPrice);
-    parcelid.appendChild(parcel_id);
+    button.appendChild(newbutton)
   }
 
 function fetchAll(){
@@ -66,7 +93,7 @@ function fetchAll(){
     })
     .then(res => res.json())
     .then(response => {
-        data = response.Parcel
+        data = response.Parcels;
         var i;
         for (i = 0; i < data.length; i++) { 
             specificParcel = data[i];
@@ -78,31 +105,8 @@ function fetchAll(){
             addRow('parceltable',parcelname,source,destination,price,parcel_id)
         }
     })  
+    
 }  
-
-function showDetails(){
-    let parcelid = document.getElementById('parcelid').value;
-    const specificOrderUrl = `http://127.0.0.1:5000/v2/api/parcels/${parcelid}`
-    fetch(specificOrderUrl, {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`
-        }
-    })
-    .then(res => res.json())
-    .then(response => {
-        data = response.Parcel
-        specificParcel = data[0];
-        parcelname = specificParcel.parcel_name;
-        source = specificParcel.parcel_source;
-        destination = specificParcel.parcel_destination;
-        price = specificParcel.price
-        parcel_id = specificParcel.parcelid
-        addDetails(parcelname,source,destination,price,parcel_id)
-        //alert(data)
-      })
-}
 
 function addDetails(parcelname,source,destination,price,parcel_id){
     let tableRef = document.getElementById('detailstable');
@@ -117,3 +121,25 @@ function addDetails(parcelname,source,destination,price,parcel_id){
     parcelname.appendChild(newParcel);
     parcelsource.appendChild(parcelSource);
 }
+
+function updateDestination(e,parcelid){
+    statusurl = `http://127.0.0.1:5000/v2/api/parcels/${parcelid}/destination`
+    newdestination=e.target.value;
+    let data = {
+        destination:newdestination
+    }
+    fetch(statusurl, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+                 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`
+             },
+        body: JSON.stringify(data)     
+         })
+    .then(res => res.json())
+    .then(response => {
+        alert(response.message)
+        document.location.reload(true);
+    })
+  }
+

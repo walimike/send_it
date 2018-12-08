@@ -1,4 +1,3 @@
-
 token = localStorage.getItem("accesstoken")
 const orderUrl = 'http://127.0.0.1:5000/v2/api/parcels';
 const userOrderUrl = 'http://127.0.0.1:5000/v2/api/users/parcels';
@@ -20,17 +19,17 @@ function getAllOrders() {
             specificParcel = data[i];
             parcelname = specificParcel.parcel_name;
             parcelid = specificParcel.parcelid;
-            addRow('admintable',parcelname,parcelid);
+            username = specificParcel.username
+            addRow('admintable',parcelname,username,parcelid);
         }
     })
 }
 
-
-function addRow(tableID,parcelName,parcelid) {
+function addRow(tableID,parcelName,username,parcelid) {
     let newRow = document.getElementById(tableID).insertRow(-1);
 
     let newParcel = document.createTextNode(parcelName);
-    let newid = document.createTextNode(parcelid);
+    let newid = document.createTextNode(username);
     var button2 = document.createElement("button");
     button2.innerHTML = "Edit status";
     button2.addEventListener('click',()=>{
@@ -114,3 +113,4 @@ function addRow(tableID,parcelName,parcelid) {
         alert(response.message)
     })
   }
+
