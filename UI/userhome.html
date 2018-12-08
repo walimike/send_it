@@ -6,9 +6,9 @@
     <meta name="author" content="Michael Robert Wali">
     <title>sendit</title>
     <link href="css/style.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="scripts/main.js"></script>
+    <script src="scripts/userdash.js"></script>
   </head>
-  <body class="innerbody">
+  <body class="innerbody" onload="fetchAll();">
     <header>
       <nav>
         <div class="nav-link">
@@ -25,103 +25,58 @@
           <tr>
             <th>Parcel Name</th>
             <th>Price</th>
-            <th>From</th>
+            <th>Source</th>
             <th>Destination</th>
           </tr>
           <tr>
-            <td><form><input class="delivery-form" type="text"></form></td>
-            <td><form><input class="delivery-form" type="number"></form></td>
-            <td>
-              <select class="details">
-                <option value="dlivered">Kamapala</option>
-                <option value="dlivered">Mbale</option>
-                <option value="dlivered">Busia</option>
-                <option value="dlivered">Mbarara</option>
-                <option value="dlivered">Arua</option>
-                <option value="dlivered">Mpigi</option>
-              </select>
-            </td>
-            <td>
-              <select class="details">
-                <option value="dlivered">Kamapala</option>
-                <option value="dlivered">Mbale</option>
-                <option value="dlivered">Busia</option>
-                <option value="dlivered">Mbarara</option>
-                <option value="dlivered">Arua</option>
-                <option value="dlivered">Mpigi</option>
-              </select>
-            </td>
+            <td><form><input class="delivery-form" type="text" id="parcelname"></form></td>
+            <td><form><input class="delivery-form" type="number" id="price"></form></td>
+            <td><form><input class="delivery-form" type="text" id="source"></form></td>
+            <td><form><input class="delivery-form" type="text" id="destination"></form></td>
           </tr>
         </table>
       </div>
       <div class="mybuttons">
-        <button type="submit" class="button1">Create</button>
+        <button type="submit" class="button1" onclick="makeOrder();">Create</button>
+      </div>
+    </div>
+    <div class="all-parcels">
+        <h1>All Parcels</h1>
+      <div class="table">
+        <table id="parceltable">
+          <tr>
+            <th>Parcel Name</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Price</th>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="view-parcel">
-      <h1>Details</h1>
+      <h1>Edit Parcel</h1>
       <div class="table1">
-        <table>
+        <table id="detailstable">
           <tr>
-            <th>Parcel Name:</th>
-            <td>Mobile phone</td>
+            <th>Parcel Name</th>
+            <td id="userparcelname"></td>
           </tr>
           <tr>
-            <th>Status</th>
-            <td>In Transit</td>
+            <th>Price</th>
+            <td id="userprice"></td>
           </tr>
           <tr>
-            <th>From</th>
-            <td>Gulu</td>
+            <th>Source</th>
+            <td id="usersource"></td>
           </tr>
           <tr>
             <th>Present Location</th>
-            <td>Nebbi</td>
+            <td id="userlocation"></td>
           </tr>
           <tr>
             <th>Destination</th>
-            <td>
-              <select class="details">
-                <option value="to">Mbarara</option>
-                <option value="to">Kamapala</option>
-                <option value="to">Kitgum</option>
-                <option value="to">Mubende</option>
-              </select>
-            </td>
-          </tr>
-        </table>
-        <button type="submit" class="button2">Cancel</button>
-        <button type="submit" class="button1">Save</button>
-      </div>
-    </div>
-        <div class="all-parcels">
-        <h1>All Parcels</h1>
-      <div class="table">
-        <table>
-          <tr>
-            <th>Parcel Name</th>
-            <th>Status</th>
-            <th>View Details</th>
-          </tr>
-          <tr>
-            <td>Mobile phone</td>
-            <td>Delivered</td>
-            <td><input class="parcel-details" type="button" value="Details"></td>
-          </tr>
-          <tr>
-            <td>Gas cooker</td>
-            <td>In transit</td>
-            <td><input class="parcel-details" type="button" value="Details"></td>
-          </tr>
-          <tr>
-            <td>Gas cooker</td>
-            <td>In transit</td>
-            <td><input class="parcel-details" type="button" value="Details"></td>
-          </tr>
-          <tr>
-            <td>Gas cooker</td>
-            <td>In transit</td>
-            <td><input class="parcel-details" type="button" value="Details"></td>
+            <td id="userdestination"></td>
+            <td id="userbutton"></td>
           </tr>
         </table>
       </div>

@@ -14,6 +14,7 @@ body{
   float: left;
 }
 
+
 .branding h1{
   font: 40px/1.5 Arial, Helvetica, sans-serif;
   color: white;
@@ -264,9 +265,10 @@ td, th{
 
 .all-parcels{
   height: 400px;
-  width: 50%;
+  width: 45%;
   background-color: white;
   border-radius: 5px;
+  float: left;
   margin: 30px;
 }
 
@@ -280,7 +282,7 @@ td, th{
 
 .view-parcel{
   height: 380px;
-  width: 40%;
+  width: 35%;
   float: right;
   background-color: white;
   border-radius: 5px;
@@ -291,9 +293,9 @@ td, th{
 
 
 .profile{
-  margin: 40px 20px;
+  margin: 20px;
   float: left;
-  width:30%;
+  width:20%;
   height: 330px;
   background-color: white;
   border-radius: 5px;
@@ -304,7 +306,7 @@ td, th{
 }
 
 .profile-pic{
-  margin-top: 20px;
+  margin-top: 40px;
   margin-left: 25%;
   width: 150px;
   height: 150px;
@@ -318,8 +320,8 @@ td, th{
 
 .parcel-orders{
   float: right;
-  width: 60%;
-  margin: 30px;
+  width: 70%;
+  margin-top: 20px;
   border-radius: 5px;
   height: 400px;
   background-color: white;

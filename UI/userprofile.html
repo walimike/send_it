@@ -6,9 +6,9 @@
     <meta name="author" content="Michael Robert Wali">
     <title>sendit</title>
     <link href="css/style.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="scripts/main.js"></script>
+    <script src="scripts/main.js"></script>
   </head>
-  <body class="innerbody">
+  <body class="innerbody" onload="updateProfile('http://127.0.0.1:5000/v2/api/users/parcels','userprofiletable');",>
     <nav>
         <a href="index.html">Logout</a>
         <a href="userprofile.html">Profile</a>
@@ -21,15 +21,11 @@
       <table>
         <tr>
           <th>Name:</th>
-          <td>Lynn Ariye</td>
-        </tr>
-        <tr>
-          <th>Sex:</th>
-          <td>Female</td>
+          <td id="userprofilename"></td>
         </tr>
         <tr>
           <th>User ID:</th>
-          <td>23</td>
+          <td id="userprofileid"></td>
         </tr>
         <tr>
           <th>Account-type:</th>
@@ -41,57 +37,26 @@
         <h1>All Parcels</h1>
         <div class="table">
           <table>
-            <tr>
-              <th>Parcel Name</th>
-              <th>Cost</th>
-              <th>Status</th>
-              <th>From</th>
-              <th>Destination</th>
-            </tr>
-            <tr>
-              <td>Gas cooker</td>
-              <td>shs. 550,000</td>
-              <td>In transit</td>
-              <td>Entebbe</td>
-              <td>Mpigi</td>
-            </tr>
-            <tr>
-              <td>Gas cooker</td>
-              <td>shs. 550,000</td>
-              <td>In transit</td>
-              <td>Kabale</td>
-              <td>Masaka</td>
-            </tr>
-            <tr>
-              <td>Gas cooker</td>
-              <td>shs. 550,000</td>
-              <td>In transit</td>
-              <td>Koboko</td>
-              <td>Hoima</td>
-            </tr>
-            <tr>
-              <td>Calculator</td>
-              <td>shs. 50,000</td>
-              <td>Delivered</td>
-              <td>Ishaka</td>
-              <td>Mbale</td>
-            </tr>
-            <tr>
-              <td>Calculator</td>
-              <td>shs. 50,000</td>
-              <td>Delivered</td>
-              <td>Manafwa</td>
-              <td>Mbarara</td>
-            </tr>
+            <table id="userprofiletable">
+              <tr>
+                <th>Parcel Name</th>
+                <th>Parcel ID</th>
+                <th>Destination</th>
+                <th>Source</th>
+                <th>Status</th>
+                <th>Present Location</th>
+                <th>Price</th>
+              </tr>
+            </table>
           </table>
           <table class="table2">
             <tr>
               <th>Total Delivered</th>
-              <td>3</td>
+              <td id="totaldelivered"></td>
             </tr>
             <tr>
               <th>Total In-transit</th>
-              <td>2</td>
+              <td id="totalintransit"></td>
             </tr>
           </table>
     </div>
