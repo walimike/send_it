@@ -13,7 +13,7 @@ class Dbcontroller:
     """
 
     def __init__(self):
-        database_url = app.config['DATABASE_URL']
+        database_url = 'postgres://rctutlhnikqkfo:d2e38d4d9a3b8d1fe7c43b083c83ee53ede773fa7578016ff5e4c8b3039a6af8@ec2-50-17-203-51.compute-1.amazonaws.com:5432/d29tmu94kukpgr'
         parsed_url = urlparse(database_url)
         dbname = parsed_url.path[1:]
         user = parsed_url.username
