@@ -23,8 +23,9 @@ def make_order():
     price = request.json.get('price')
 
     new_parcel = Parcel(parcel_name,price,user_identiy['user_id'],source,destination)
-    db_conn.add_parcel(new_parcel)
-    return jsonify({"message":"order added successfully"}),201
+    db_conn.add_parcel(new_parcel) 
+    parcel = db_conn.query_last_item()
+    return jsonify({"message":"order added successfully","parcel":parcel}),201
 
 @appblueprint.route('/parcels', methods=['GET'])
 @jwt_required

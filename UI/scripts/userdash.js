@@ -26,9 +26,9 @@ function makeOrder() {
     })
     .then(res => res.json())
     .then(response => {
-        alert(response.message);
+        currentParcel = response.parcel.parcelid;
       if (response.message=='order added successfully'){
-        addRow('parceltable',parcelname,source,destination,price,100)
+        addRow('parceltable',parcelname,source,destination,price,currentParcel);
       }  
     })
 }
@@ -36,7 +36,7 @@ function makeOrder() {
 function addRow(tableID,parcelName,source,destination,price,parcelID) {
     let tableRef = document.getElementById(tableID);
     let newRow = tableRef.insertRow(-1);
-
+    
     let parcelname = newRow.insertCell(0);
     let parcelsource = newRow.insertCell(1);
     let parceldestination = newRow.insertCell(2);

@@ -76,7 +76,7 @@ function addRow(tableID,parcelName,username,parcelid) {
   function updateLocation(e,parcelid){
     locationurl = `http://127.0.0.1:5000/v2/api/parcels/${parcelid}/presentlocation`
     newlocation=e.target.value;
-    alert(newlocation)
+
     let data = {
         present_location:newlocation
     }
@@ -91,26 +91,34 @@ function addRow(tableID,parcelName,username,parcelid) {
     .then(res => res.json())
     .then(response => {
         alert(response.message)
+        document.location.reload(true);
     })
   }
 
-  function updateStatus(e,parcelid){
+  function updateStatus(e,parcelid){  
     statusurl = `http://127.0.0.1:5000/v2/api/parcels/${parcelid}/cancel`
     newstatus=e.target.value;
-    let data = {
-        status:newstatus
+    if( (newstatus=='cancel') || (newstatus=='deliver') ) { 
+        let data = {
+            status:newstatus
+        }
+        fetch(statusurl, {
+            method: 'PUT',
+            mode: 'cors',
+            headers: {
+                    'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`
+                },
+            body: JSON.stringify(data)     
+            })
+        .then(res => res.json())
+        .then(response => {
+            alert(response.message)
+            document.location.reload(true);
+        })
     }
-    fetch(statusurl, {
-        method: 'PUT',
-        mode: 'cors',
-        headers: {
-                 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`
-             },
-        body: JSON.stringify(data)     
-         })
-    .then(res => res.json())
-    .then(response => {
-        alert(response.message)
-    })
-  }
+    else{
+        alert("status can only be cancel or deliver");
+        return;
+    }
+}
 

@@ -32,10 +32,6 @@ class Dbcontroller:
         self.create_tables()
         admin_user = User('adminuser','admin@gmail.com','1234567890','admin')
         self.add_user(admin_user)
-        user1 = User('wali','walimike@gmail.com','1234567890','user')
-        self.add_user(user1)
-        user2 = User('abba','abba@gmail.com','1234567890','user')
-        self.add_user(user2)
 
 
     def create_tables(self):
@@ -111,3 +107,9 @@ class Dbcontroller:
     def update_parcel(self,column,value, parcel_id):
             query = """UPDATE parcels SET {0} = '{1}' WHERE parcelid  = {2}""".format(column,value, parcel_id)
             self.cursor.execute(query,)
+
+    def query_last_item(self):
+        query = """SELECT * FROM parcels ORDER BY parcelid DESC LIMIT 1"""
+        self.cursor.execute(query,)
+        parcel = self.cursor.fetchone()
+        return parcel

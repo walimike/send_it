@@ -48,6 +48,7 @@ function Logout() {
     window.location.href = 'index.html';
 }
 
+
 function logIn() {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
@@ -67,14 +68,28 @@ function logIn() {
     .then(res => res.json())
     .then(response => {
         localStorage.setItem("accesstoken",response.access_token);
-        alert(response.message);
-        if (response.role=='user'){
-            window.location.replace('userhome.html');
-        }
+        if (response.message=='successfully logged in'){    
+            redirectUser(response.role);
+        }    
         else{
-            window.location.replace('adminhome.html');
+            alert(response.message);
+            if (response.message=='user does not exist, do you want to signup'){
+                window.location.replace('signup.html');
+            }
+            else{
+                window.location.reload()
+            }
         }
     })
+}
+
+function redirectUser(role){
+    if (role=='user'){
+        window.location.replace('userhome.html');
+    }
+    else{
+        window.location.replace('adminhome.html');
+    }    
 }
 
 function signUp() {
@@ -103,36 +118,8 @@ function signUp() {
     .then(res => res.json())
     .then(response => {
         alert(response.message);
-        if (response.message=="you have successfully signed up as " + username){
+        if (response.message=="you have successfully signed up as" + username){
         window.location.replace('index.html');
         }
     })
-}
-    
-<div class="modal">
-    <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <h1 id="message">Hello, I am a modal!</h1>
-    </div>        
-</div>
-
-function userAlert(message){
-
-var modal = document.querySelector(".modal");
-    var trigger = document.querySelector(".trigger");
-    var closeButton = document.querySelector(".close-button");
-
-    function toggleModal() {
-        modal.classList.toggle("show-modal");
-    }
-
-    function windowOnClick(event) {
-        if (event.target === modal) {
-            toggleModal();
-        }
-    }
-
-    trigger.addEventListener("click", toggleModal);
-    closeButton.addEventListener("click", toggleModal);
-    window.addEventListener("click", windowOnClick);        
 }
