@@ -33,7 +33,11 @@ function addRow(tableID,parcelName,username,parcelid) {
     var button2 = document.createElement("button");
     button2.innerHTML = "Edit status";
     button2.addEventListener('click',()=>{
-        document.getElementById('status').innerHTML = `<input type="text" onblur=updateStatus(event,${parcelid}) id="editstatus" required>`
+        document.getElementById('status').innerHTML = `<select class="details" onblur=updateStatus(event,${parcelid}) id="editlocation">
+        <option value="In Transit">In transit</option>
+        <option value="Canceled">cancel</option>
+        <option value="Delivered">deliver</option>
+      </select>`
         button2.innerHTML = "Save";
         
     })
@@ -63,6 +67,7 @@ function addRow(tableID,parcelName,username,parcelid) {
             document.getElementById('presentlocation').innerText= data.present_location;
             document.getElementById('destination').innerText= data.parcel_destination;
             document.getElementById('status').innerText= data.parcel_status;
+            document.getElementById('createdate').innerText= data.parcel_date;
             document.getElementById('statusbutton').appendChild(button2);
             document.getElementById('locationbutton').appendChild(button3);
          })
@@ -98,27 +103,19 @@ function addRow(tableID,parcelName,username,parcelid) {
   function updateStatus(e,parcelid){  
     statusurl = `http://127.0.0.1:5000/v2/api/parcels/${parcelid}/cancel`
     newstatus=e.target.value;
-    if( (newstatus=='cancel') || (newstatus=='deliver') ) { 
-        let data = {
-            status:newstatus
-        }
-        fetch(statusurl, {
-            method: 'PUT',
-            mode: 'cors',
-            headers: {
-                    'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`
-                },
-            body: JSON.stringify(data)     
-            })
-        .then(res => res.json())
-        .then(response => {
-            alert(response.message)
-            document.location.reload(true);
+    fetch(statusurl, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+                'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`
+            },
+        body: JSON.stringify(data)     
         })
-    }
-    else{
-        alert("status can only be cancel or deliver");
-        return;
-    }
-}
+    .then(res => res.json())
+    .then(response => {
+        alert(response.message)
+        document.location.reload(true);
+      })
+w    }
+
 

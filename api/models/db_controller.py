@@ -13,7 +13,7 @@ class Dbcontroller:
     """
 
     def __init__(self):
-        database_url = 'postgres://rctutlhnikqkfo:d2e38d4d9a3b8d1fe7c43b083c83ee53ede773fa7578016ff5e4c8b3039a6af8@ec2-50-17-203-51.compute-1.amazonaws.com:5432/d29tmu94kukpgr'
+        database_url = app.config['DATABASE_URL']
         parsed_url = urlparse(database_url)
         dbname = parsed_url.path[1:]
         user = parsed_url.username
@@ -29,9 +29,11 @@ class Dbcontroller:
         self.conn.autocommit = True
         self.cursor = self.conn.cursor(cursor_factory=walimike.RealDictCursor)
         print("Successfully connected to"+database_url)
+        self.drop_tables()
         self.create_tables()
         admin_user = User('adminuser','admin@gmail.com','1234567890','admin')
-        self.add_user(admin_user)
+        if not self.fetch_user(admin_user):
+            self.add_user(admin_user)
 
 
     def create_tables(self):
@@ -45,7 +47,7 @@ class Dbcontroller:
         parcels_table = "CREATE TABLE IF NOT EXISTS parcels(parcelId serial PRIMARY KEY,\
           parcel_name varchar(100), price integer, parcel_status varchar(20),\
           usrId INTEGER REFERENCES users(usrId), parcel_source varchar(40),\
-          parcel_destination varchar(40), present_location varchar(40))"
+          parcel_destination varchar(40), present_location varchar(40), parcel_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP)"
           #FOREIGN KEY (user_id) REFERENCES users(user_id) )""",
 
         self.cursor.execute(user_table)

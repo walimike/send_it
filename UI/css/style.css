@@ -264,7 +264,7 @@ td, th{
 }
 
 .all-parcels{
-  height: 400px;
+  min-height: 300px;
   width: 45%;
   background-color: white;
   border-radius: 5px;
@@ -281,8 +281,8 @@ td, th{
 }
 
 .view-parcel{
-  height: 380px;
-  width: 35%;
+  min-height: 380px;
+  width: 45%;
   float: right;
   background-color: white;
   border-radius: 5px;
@@ -290,7 +290,6 @@ td, th{
 }
 
 /* profile page */
-
 
 .profile{
   margin: 20px;
@@ -319,11 +318,11 @@ td, th{
 }
 
 .parcel-orders{
+  min-height: 300px;
   float: right;
   width: 70%;
   margin-top: 20px;
   border-radius: 5px;
-  height: 400px;
   background-color: white;
 }
 

@@ -3,7 +3,7 @@ from api.views import appblueprint, is_not_valid_order_key,\
 is_not_valid_order, db_conn
 from api.models.models import Parcel
 from flask_jwt_extended import jwt_required,get_jwt_identity
-
+import datetime
 
 @appblueprint.route('/parcels', methods=['POST'])
 @jwt_required
@@ -21,7 +21,7 @@ def make_order():
     source = request.json.get('source')
     destination = request.json.get('destination')
     price = request.json.get('price')
-
+    
     new_parcel = Parcel(parcel_name,price,user_identiy['user_id'],source,destination)
     db_conn.add_parcel(new_parcel) 
     parcel = db_conn.query_last_item()
@@ -71,13 +71,10 @@ def change_order_status(parcel_id):
         return jsonify({"message":"Unauthorized access"}),401
     new_status = request.json.get('status')
 
-    if new_status != 'cancel':
-        if new_status != 'deliver':
-            return jsonify({"message":"status can only be canceled or delivered"}),400
     if not db_conn.fetch_parcel('parcelid',parcel_id):
         return jsonify({"message":"order does not exist"}),404
-    status_update = new_status + "ed"    
-    db_conn.update_parcel('parcel_status',status_update,parcel_id)
+        
+    db_conn.update_parcel('parcel_status',new_status,parcel_id)
     return jsonify({"message":"successfully updated"}),200
 
 @appblueprint.route('/parcels/<int:parcel_id>/destination', methods=['PUT'])

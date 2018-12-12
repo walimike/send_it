@@ -99,7 +99,8 @@ function signUp() {
     let email = document.getElementById('email').value;
     
     if (password1 != password2){
-        alert('Passwords do not match')
+        alert('Passwords do not match');
+        return;
     }
 
     const url = 'http://127.0.0.1:5000/v2/api/auth/signup';
