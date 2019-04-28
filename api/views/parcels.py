@@ -31,9 +31,9 @@ def make_order():
 @jwt_required
 #@swag_from('../docs/fetch_all_orders.yml', methods = ['GET'])
 def fetch_all_orders():
-    role = get_jwt_identity()['role']
-    if role != 'admin':
-        return jsonify({"message":"you are not authorized to access this endpoint"}),401
+#     role = get_jwt_identity()['role']
+#     if role != 'admin':
+#         return jsonify({"message":"you are not authorized to access this endpoint"}),401
     return jsonify({"Parcels":parcel_db.fetch_all_orders()}),200
 
 @appblueprint.route('/parcels/<int:parcel_id>', methods=['GET'])
