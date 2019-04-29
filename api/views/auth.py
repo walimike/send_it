@@ -56,4 +56,4 @@ def login():
     user = {"user_id":current_user["usrid"],"role":current_user["role"]}
 
     access_token = create_access_token(identity=user)
-    return jsonify({'access_token':access_token,'message':'successfully logged in','role':current_user["role"]}), 200
+    return jsonify({'access_token':access_token,'message':'successfully logged in','role':current_user["role"],'id':current_user["usrid"]}), 200
